@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grouse &amp; Company | Design 03: The British Interior — Period Property Intelligence</title>
+  <link rel="stylesheet" href="assets/grouse-shared.css" />
+  <style>
+    /* ==========================================================================
+       DESIGN 03: THE BRITISH INTERIOR — PERIOD PROPERTY INTELLIGENCE
+       Magazine Monograph Layout (Country Life / World of Interiors / Plain English)
+       Interactive Architectural Era Guide (Georgian, Regency, Victorian, Edwardian,
+       Arts & Crafts, Country Vernacular) + Animated Panel Proportion Diagrams.
+       ========================================================================== */
+
+    body {
+      background-color: var(--ivory-warm);
+      color: var(--charcoal-ink);
+    }
+
+    /* Editorial Masthead */
+    .editorial-masthead {
+      border-bottom: 1px solid var(--stone-border);
+      padding: 22px 4vw 14px;
+      text-align: center;
+      background: var(--ivory-warm);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .masthead-top {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto 12px;
+    }
+    .masthead-nav-left, .masthead-nav-right {
+      display: flex;
+      gap: 1.8rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+    }
+    .masthead-nav-right {
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .masthead-top a {
+      color: var(--charcoal-ink);
+      text-decoration: none;
+    }
+    .masthead-top a:hover {
+      color: var(--brass-antique);
+    }
+    .masthead-wordmark {
+      font-family: var(--font-brand);
+      font-size: 1.55rem;
+      letter-spacing: 0.18em;
+      color: var(--olive-deep);
+    }
+    .sub-pill-bar {
+      display: inline-flex;
+      gap: 2rem;
+      border-top: 1px solid var(--stone-border);
+      padding-top: 10px;
+      font-size: 0.74rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .sub-pill-bar a {
+      text-decoration: none;
+      color: var(--muted-ink);
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+    }
+    .sub-pill-bar a.active {
+      color: var(--olive-deep);
+      border-bottom-color: var(--brass-antique);
+      font-weight: 500;
+    }
+
+    /* Editorial Split Hero ("Period Property Intelligence" & "The British Interior") */
+    .editorial-hero {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 4.5fr 7.5fr;
+      border-bottom: 1px solid var(--stone-border);
+    }
+    .editorial-hero-copy {
+      padding: 4.5rem 4vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--stone-border);
+    }
+    .editorial-hero-copy h1 {
+      font-size: clamp(2.3rem, 3.8vw, 3.4rem);
+      color: var(--olive-deep);
+      margin-bottom: 1.25rem;
+      line-height: 1.14;
+    }
+    .editorial-hero-copy h1 em {
+      font-style: italic;
+    }
+    .editorial-hero-img {
+      position: relative;
+      min-height: 540px;
+      overflow: hidden;
+    }
+    .editorial-hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Interactive Period Selector Bar (Georgian | Regency | Victorian | Edwardian | Arts & Crafts | Country Vernacular) */
+    .era-bar {
+      background: var(--stone-pale);
+      border-bottom: 1px solid var(--stone-border);
+      padding: 0 4vw;
+    }
+    .era-tabs {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .era-tab-btn {
+      background: transparent;
+      border: none;
+      border-right: 1px solid var(--stone-border);
+      padding: 1.25rem 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      color: var(--muted-ink);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-align: center;
+    }
+    .era-tab-btn:first-child {
+      border-left: 1px solid var(--stone-border);
+    }
+    .era-tab-btn strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 0.98rem;
+      color: var(--olive-deep);
+      font-weight: 400;
+      margin-bottom: 2px;
+    }
+    .era-tab-btn.active, .era-tab-btn:hover {
+      background: var(--olive-deep);
+      color: var(--brass-light);
+    }
+    .era-tab-btn.active strong, .era-tab-btn:hover strong {
+      color: var(--ivory-warm);
+    }
+
+    /* Interactive Period Intelligence Atlas Card */
+    .era-atlas-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem 4vw 5rem;
+      border-bottom: 1px solid var(--stone-border);
+    }
+    .era-atlas-grid {
+      display: grid;
+      grid-template-columns: 4.5fr 4fr 3.5fr;
+      gap: 2.5rem;
+      align-items: stretch;
+    }
+    .era-photo-box {
+      position: relative;
+      background: var(--stone-pale);
+      padding: 12px;
+      border: 1px solid var(--stone-border);
+    }
+    .era-photo-box img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+    .era-spec-sheet {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+    }
+    .era-meta-table {
+      border-top: 1px solid var(--stone-border);
+      margin-top: 1.25rem;
+    }
+    .era-meta-row {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--stone-border);
+      font-size: 0.83rem;
+    }
+    .era-meta-row strong {
+      display: block;
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--brass-antique);
+    }
+
+    /* Animated Woodwork Wall Panelling Proportion Diagram */
+    .proportion-diagram-card {
+      background: var(--olive-deep);
+      color: var(--ivory-warm);
+      padding: 2rem;
+      border: 1px solid var(--brass-antique);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .panel-elevation-svg {
+      width: 100%;
+      height: 250px;
+      display: block;
+      margin: 1rem 0;
+    }
+    .panel-elevation-svg rect, .panel-elevation-svg line {
+      transition: all 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* "Every Room Has a Story" 3-Column Editorial Showcase */
+    .story-rooms-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 5rem 4vw;
+    }
+    .three-room-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.25rem;
+      margin-top: 2.5rem;
+    }
+    .room-editorial-card {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .room-editorial-card .img-box {
+      position: relative;
+      height: 360px;
+      overflow: hidden;
+      margin-bottom: 1.15rem;
+      border: 1px solid var(--stone-border);
+    }
+    .room-editorial-card .img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.65s ease;
+    }
+    .room-editorial-card:hover .img-box img {
+      transform: scale(1.03);
+    }
+    .room-editorial-card h3 {
+      font-size: 1.45rem;
+      margin-bottom: 0.35rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--olive-deep);
+    }
+    .room-editorial-card p {
+      font-size: 0.86rem;
+      color: var(--muted-ink);
+      margin: 0;
+    }
+
+    /* "Considered in Every Detail" 2x2 Material & Joinery Grid */
+    .details-quad-section {
+      background: var(--stone-pale);
+      border-top: 1px solid var(--stone-border);
+      border-bottom: 1px solid var(--stone-border);
+      padding: 5.5rem 4vw;
+    }
+    .quad-grid {
+      max-width: 1400px;
+      margin: 2.5rem auto 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+    .quad-card {
+      background: var(--ivory-warm);
+      border: 1px solid var(--stone-border);
+      padding: 1.25rem;
+    }
+    .quad-card img {
+      width: 100%;
+      height: 290px;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 1.15rem;
+    }
+
+    /* Dark Olive Architectural Callout: "Read the house before changing it" + Sawdust Motion */
+    .read-house-band {
+      background: var(--olive-deep);
+      color: var(--ivory-warm);
+      padding: 5.5rem 4vw 7rem;
+    }
+    .read-house-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (max-width: 980px) {
+      .masthead-top, .editorial-hero, .era-tabs, .era-atlas-grid, .three-room-grid, .quad-grid, .read-house-inner {
+        grid-template-columns: 1fr;
+      }
+      .masthead-nav-left, .masthead-nav-right { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Magazine Monograph Masthead -->
+  <header class="editorial-masthead">
+    <div class="masthead-top">
+      <nav class="masthead-nav-left">
+        <a href="#period-atlas">Period Intelligence</a>
+        <a href="#room-stories">Room Stories</a>
+        <a href="#detail-quad">Material Details</a>
+      </nav>
+      <a href="#" class="masthead-wordmark">GROUSE &amp; COMPANY</a>
+      <div class="masthead-nav-right">
+        <a href="design-1-heritage-estate.html">Main Portfolio</a>
+        <a href="design-2-architectural-atelier.html">Our Approach</a>
+        <a href="design-1-heritage-estate.html#start-project" class="btn-primary" style="padding:8px 18px; font-size:0.72rem;">Start a Project →</a>
+      </div>
+    </div>
+    <div class="sub-pill-bar">
+      <a href="#period-atlas" class="active">Period Property Intelligence</a>
+      <a href="#detail-quad">The <em>British</em> Interior Guide</a>
+      <a href="#read-the-house">Why Bespoke Over Flat-Pack</a>
+    </div>
+  </header>
+
+  <!-- Editorial Split Hero -->
+  <section class="editorial-hero">
+    <div class="editorial-hero-copy">
+      <span class="eyebrow">Understanding the House · Monograph</span>
+      <h1>The <em>British</em> Interior &amp; Period Intelligence.</h1>
+      <p style="color:var(--muted-ink); font-size:0.95rem; margin-bottom:1.5rem;">
+        A house’s date alone does not determine the right joinery scheme; existing fabric, ceiling heights and later alterations matter. Explore how we respect original proportions while bringing country and period rooms forward for modern living.
+      </p>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+        <a href="#period-atlas" class="btn-primary">Explore by Period ↓</a>
+        <a href="#detail-quad" class="btn-secondary">Mouldings &amp; Timber</a>
+      </div>
+    </div>
+    <div class="editorial-hero-img">
+      <img src="assets/hero-olive-dresser.jpg" alt="Bespoke olive Welsh dresser and stained oak shelving in a British country home" />
+      <span class="concept-tag">Concept Reference · The British Interior</span>
+    </div>
+  </section>
+
+  <!-- Interactive Period Tabs (Georgian, Regency, Victorian, Edwardian, Arts & Crafts, Country Vernacular) -->
+  <div class="era-bar" id="period-atlas">
+    <div class="era-tabs" id="eraTabs">
+      <button class="era-tab-btn active" data-era="georgian">
+        <strong>Georgian</strong>
+        <span>c. 1714 – 1830</span>
+      </button>
+      <button class="era-tab-btn" data-era="regency">
+        <strong>Regency</strong>
+        <span>c. 1811 – 1837</span>
+      </button>
+      <button class="era-tab-btn" data-era="victorian">
+        <strong>Victorian</strong>
+        <span>c. 1837 – 1901</span>
+      </button>
+      <button class="era-tab-btn" data-era="edwardian">
+        <strong>Edwardian</strong>
+        <span>c. 1901 – 1914</span>
+      </button>
+      <button class="era-tab-btn" data-era="artscrafts">
+        <strong>Arts &amp; Crafts</strong>
+        <span>c. 1880 – 1920</span>
+      </button>
+      <button class="era-tab-btn" data-era="vernacular">
+        <strong>Country Vernacular</strong>
+        <span>Cotswold &amp; Chiltern</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Interactive Period Intelligence Atlas Content -->
+  <section class="era-atlas-section">
+    <div class="era-atlas-grid">
+      <div class="era-photo-box mitre-frame">
+        <img id="eraImg" src="assets/era-georgian.jpg" alt="Georgian wall panelling and proportion" />
+        <span class="concept-tag" id="eraBadge">Period Guide · Georgian Proportion</span>
+      </div>
+
+      <div class="era-spec-sheet">
+        <div>
+          <span class="eyebrow" id="eraDates">APPROXIMATE DATES: 1714 – 1830</span>
+          <h2 id="eraTitle" style="font-size:2rem; margin-bottom:0.65rem;">Georgian Balance, Classical Proportion &amp; Restraint</h2>
+          <p id="eraDesc" style="color:var(--muted-ink); font-size:0.9rem; margin:0;">
+            Georgian rooms rely on classical symmetry, tall sash windows and disciplined hierarchy between skirting, dado rail, fielded wall panels and cornice. New cabinetry should echo the vertical rhythm of the window reveals rather than fighting the room’s height.
+          </p>
+
+          <div class="era-meta-table">
+            <div class="era-meta-row">
+              <strong>Profiles &amp; Proportions</strong>
+              <span id="eraProfile">Quarter-round ovolo mouldings, raised and fielded panels, 1:1.618 Golden Ratio dado-to-frieze division, fine cockbeaded in-frame doors.</span>
+            </div>
+            <div class="era-meta-row">
+              <strong>Timber, Paint &amp; Colour Suggestions</strong>
+              <span id="eraFinish">Painted tulipwood in warm stone, chalky off-whites, drab olive or deep library greens; aged unlacquered brass butt hinges and knobs.</span>
+            </div>
+            <div class="era-meta-row">
+              <strong>Historical Evidence vs. Contemporary Interpretation</strong>
+              <span id="eraModern">Rather than pastiche reproduction, we use authentic Georgian stile-and-rail widths to conceal modern media systems, acoustic panelling and dressing storage.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic Woodwork Geometry Wall Elevation Card -->
+      <div class="proportion-diagram-card">
+        <div>
+          <span class="eyebrow">Live Woodwork Geometry</span>
+          <h3 style="font-size:1.25rem; color:var(--ivory-warm); margin-bottom:0.25rem;" id="diagramHeading">Classical Fielded Panel Elevation</h3>
+          <span style="font-size:0.75rem; color:var(--brass-antique);" id="diagramSub">Dado Height: 840mm · Stile Width: 95mm</span>
+        </div>
+
+        <svg class="panel-elevation-svg" viewBox="0 0 280 230" fill="none">
+          <!-- Outer wall frame -->
+          <rect x="20" y="10" width="240" height="210" stroke="rgba(247,241,237,0.35)" stroke-width="1.5" />
+          <!-- Cornice line -->
+          <rect id="svgCornice" x="20" y="10" width="240" height="14" fill="rgba(169,135,82,0.28)" stroke="#A98752" stroke-width="1.2" />
+          <!-- Upper Panels -->
+          <rect id="svgUpperL" x="38" y="38" width="94" height="102" fill="rgba(247,241,237,0.05)" stroke="#F7F1ED" stroke-width="1.5" />
+          <rect id="svgUpperR" x="148" y="38" width="94" height="102" fill="rgba(247,241,237,0.05)" stroke="#F7F1ED" stroke-width="1.5" />
+          <!-- Dado Rail -->
+          <line id="svgDado" x1="20" y1="154" x2="260" y2="154" stroke="#A98752" stroke-width="3" />
+          <!-- Lower Dado Panels -->
+          <rect id="svgLowerL" x="38" y="166" width="94" height="36" fill="rgba(169,135,82,0.16)" stroke="#A98752" stroke-width="1.2" />
+          <rect id="svgLowerR" x="148" y="166" width="94" height="36" fill="rgba(169,135,82,0.16)" stroke="#A98752" stroke-width="1.2" />
+          <!-- Skirting Plinth -->
+          <rect x="20" y="208" width="240" height="12" fill="rgba(247,241,237,0.15)" stroke="#F7F1ED" stroke-width="1" />
+        </svg>
+
+        <div style="font-size:0.76rem; color:rgba(247,241,237,0.78); border-top:1px solid rgba(169,135,82,0.3); padding-top:0.85rem;">
+          Why Bespoke Commands a Room: Off-the-shelf flat-pack units stop short of the cornice and ignore skirting lines—creating awkward dust traps and visual clutter.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- "Every Room Has a Story" (From Period Home Intelligence Showcase Board) -->
+  <section class="story-rooms-section" id="room-stories">
+    <div class="section-header">
+      <div>
+        <span class="eyebrow">Room-by-Room Intelligence</span>
+        <h2>Every room has a story.</h2>
+      </div>
+      <p>
+        We design joinery around the lived purpose of a room—balancing quiet storage with natural light, solid timber and timeworn brass.
+      </p>
+    </div>
+
+    <div class="three-room-grid">
+      <div class="room-editorial-card">
+        <div class="img-box">
+          <img src="assets/room-drawing-room.jpg" alt="The drawing room bespoke alcove and fireplace joinery" />
+          <span class="concept-tag">Concept Reference</span>
+        </div>
+        <h3>The drawing room <span>→</span></h3>
+        <p>A room for receiving and retreating. Low-level alcove cupboards, fireplace proportion and concealed media joinery.</p>
+      </div>
+
+      <div class="room-editorial-card">
+        <div class="img-box">
+          <img src="assets/room-scullery.jpg" alt="The scullery and country pantry in solid oak and stone" />
+          <span class="concept-tag">Concept Reference</span>
+        </div>
+        <h3>The scullery &amp; pantry <span>→</span></h3>
+        <p>The working room behind the kitchen. Seasoned oak worktops, open crockery boarding, Belfast sink framing and utility storage.</p>
+      </div>
+
+      <div class="room-editorial-card">
+        <div class="img-box">
+          <img src="assets/room-library.jpg" alt="The library floor-to-ceiling bespoke bookcases" />
+          <span class="concept-tag">Concept Reference</span>
+        </div>
+        <h3>The library &amp; study <span>→</span></h3>
+        <p>Books, study and quiet. Adjustable tonk-strip oak shelving, scribed cornice ladders and integrated desk joinery.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- "Considered in Every Detail" 2x2 Grid (From Bespoke Period Joinery Board) -->
+  <section class="details-quad-section" id="detail-quad">
+    <div style="max-width:1400px; margin:0 auto;">
+      <div style="text-align:center; max-width:680px; margin:0 auto;">
+        <span class="eyebrow">The Language of Craftsmanship</span>
+        <h2 style="font-size:2.35rem; margin-bottom:0.6rem;">Considered in every detail.</h2>
+        <p style="color:var(--muted-ink); font-size:0.94rem;">
+          Mouldings, panelling, in-frame cabinetry and finishes—chosen for the building and the way it is used every day.
+        </p>
+      </div>
+
+      <div class="quad-grid">
+        <div class="quad-card mitre-frame">
+          <img src="assets/detail-mouldings.jpg" alt="Architrave mouldings, plinth blocks and skirting proportion" />
+          <h3 style="font-size:1.35rem; margin-bottom:0.35rem;">Mouldings &amp; proportion</h3>
+          <p style="font-size:0.86rem; color:var(--muted-ink); margin:0;">
+            How skirting height, architrave plinth blocks and cornice depth anchor fitted furniture to the original walls.
+          </p>
+        </div>
+
+        <div class="quad-card mitre-frame">
+          <img src="assets/detail-panelling.jpg" alt="Georgian style fielded dado panelling in warm stone" />
+          <h3 style="font-size:1.35rem; margin-bottom:0.35rem;">Panelling that belongs</h3>
+          <p style="font-size:0.86rem; color:var(--muted-ink); margin:0;">
+            Restrained dado, shaker and fielded wall panelling set out symmetrically around windows, radiators and doorways.
+          </p>
+        </div>
+
+        <div class="quad-card mitre-frame">
+          <img src="assets/detail-cockbead-hinge.jpg" alt="In-frame cockbeaded door in deep olive with aged brass butt hinge" />
+          <h3 style="font-size:1.35rem; margin-bottom:0.35rem;">In-frame &amp; cockbead</h3>
+          <p style="font-size:0.86rem; color:var(--muted-ink); margin:0;">
+            Traditional mortised solid brass butt hinges and delicate cockbead frames that stay true over decades of daily use.
+          </p>
+        </div>
+
+        <div class="quad-card mitre-frame">
+          <img src="assets/detail-timber-samples.jpg" alt="Stained English oak door, antique brass knob and curated stone and timber sample boards" />
+          <h3 style="font-size:1.35rem; margin-bottom:0.35rem;">Timber, colour &amp; finish</h3>
+          <p style="font-size:0.86rem; color:var(--muted-ink); margin:0;">
+            Curated Grouse Standards sample boards pairing stained solid oak, limestone, brushed paintwork and Armac Martin brass.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dark Olive Band: "Read the house before changing it" + Sawdust & Oil Motion Canvas -->
+  <section class="read-house-band" id="read-the-house">
+    <div class="read-house-inner">
+      <div>
+        <span class="eyebrow">Workshop Craft &amp; Material Honesty</span>
+        <h2 style="font-size:2.4rem; color:var(--ivory-warm); margin-bottom:1rem;">Let the house lead the design.</h2>
+        <p style="color:rgba(247,241,237,0.8); font-size:0.94rem; margin-bottom:1.25rem;">
+          Cheap, modular flat-pack units fight against an older property’s proportions, leaving filler strips against sloping ceilings and synthetic surfaces that age poorly.
+        </p>
+        <p style="color:rgba(247,241,237,0.8); font-size:0.94rem; margin-bottom:1.75rem;">
+          When you open a solid oak dovetailed drawer or feel the weight of an aged brass handle on an in-frame door, the joinery commands the room quietly—adding lasting architectural value to your home.
+        </p>
+        <a href="design-1-heritage-estate.html#start-project" class="btn-primary" style="background:var(--brass-antique); color:var(--olive-deep); border-color:var(--brass-antique);">
+          Discuss Your Period-Home Project →
+        </a>
+      </div>
+
+      <div class="workshop-cinema-frame">
+        <div style="height:400px; position:relative;">
+          <canvas id="editorialWorkshopCanvas" data-workshop-canvas="sawdust"></canvas>
+        </div>
+        <div class="workshop-reel-controls">
+          <div class="workshop-reel-btns">
+            <button class="reel-btn active" data-workshop-target="editorialWorkshopCanvas" data-workshop-scene="sawdust">
+              01 · After the Cut (Sawdust Drift)
+            </button>
+            <button class="reel-btn" data-workshop-target="editorialWorkshopCanvas" data-workshop-scene="varnish">
+              02 · Oiling English Oak
+            </button>
+            <button class="reel-btn" data-workshop-target="editorialWorkshopCanvas" data-workshop-scene="laser">
+              03 · Laser Scribe Survey
+            </button>
+          </div>
+          <span class="reel-spec-note">Click canvas to trigger sawdust breath</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Design Switcher Dock -->
+  <nav class="grouse-design-dock" aria-label="Design Prototype Switcher">
+    <span class="dock-label">Grouse &amp; Co Review</span>
+    <a href="index.html">★ Overview &amp; Video Studio</a>
+    <a href="design-1-heritage-estate.html">01 · Country House Estate</a>
+    <a href="design-2-architectural-atelier.html">02 · Resolve Before Build (CAD)</a>
+    <a href="design-3-british-interior-editorial.html" class="active">03 · The British Interior</a>
+    <a href="design-4-nocturne-craft.html">04 · Olive &amp; Brass Nocturne</a>
+  </nav>
+
+  <script src="assets/grouse-motion.js"></script>
+  <script>
+    // Interactive Period Property Intelligence Atlas Data
+    const eraData = {
+      georgian: {
+        img: 'assets/era-georgian.jpg',
+        badge: 'Period Guide · Georgian Proportion',
+        dates: 'APPROXIMATE DATES: 1714 – 1830',
+        title: 'Georgian Balance, Classical Proportion & Restraint',
+        desc: 'Georgian rooms rely on classical symmetry, tall sash windows and disciplined hierarchy between skirting, dado rail, fielded wall panels and cornice. New cabinetry should echo the vertical rhythm of the window reveals rather than fighting the room’s height.',
+        profile: 'Quarter-round ovolo mouldings, raised and fielded panels, 1:1.618 Golden Ratio dado-to-frieze division, fine cockbeaded in-frame doors.',
+        finish: 'Painted tulipwood in warm stone, chalky off-whites, drab olive or deep library greens; aged unlacquered brass butt hinges and knobs.',
+        modern: 'Rather than pastiche reproduction, we use authentic Georgian stile-and-rail widths to conceal modern media systems, acoustic panelling and dressing storage.',
+        diagHeading: 'Classical Georgian Fielded Elevation',
+        diagSub: 'Dado Height: 840mm · Tall Upper Fielded Panels',
+        dadoY: 154, upperH: 102, lowerY: 166, lowerH: 36
+      },
+      regency: {
+        img: 'assets/period-drawing-room-hero.jpg',
+        badge: 'Period Guide · Regency Elegance',
+        dates: 'APPROXIMATE DATES: 1811 – 1837',
+        title: 'Regency Lightness, Reeding & Fine Brass Detail',
+        desc: 'Regency interiors introduced taller floor-to-ceiling windows, slender reeded mouldings, bulls-eye corner rosettes and refined brass grillework in library bookcases.',
+        profile: 'Slender reeded stiles, shallow recessed panels, brass wire mesh bookcase doors and delicate cockbead surrounds.',
+        finish: 'Pale stone, warm Regency cream and deep bronze-green accents with aged brass grilles and slim cabinet pulls.',
+        modern: 'Ideal for studies and drawing rooms: brass grille doors allow airflow and remote signals for concealed AV and heating while preserving period elegance.',
+        diagHeading: 'Regency Slender Proportion Elevation',
+        diagSub: 'Low Plinth Dado: 720mm · Elongated Vertical Panels',
+        dadoY: 168, upperH: 116, lowerY: 178, lowerH: 24
+      },
+      victorian: {
+        img: 'assets/era-victorian.jpg',
+        badge: 'Period Guide · Victorian Depth',
+        dates: 'APPROXIMATE DATES: 1837 – 1901',
+        title: 'Victorian Richness, Moulded Depth & Character',
+        desc: 'Victorian homes feature deeper bolection mouldings, high skirting boards, expressive chimney breasts and rich stained timber libraries and sculleries.',
+        profile: 'Bolection and lamb’s-tongue mouldings, deeper cornice projections, turned bun feet and substantial four-panelled doors.',
+        finish: 'Dark stained oak, walnut tones, deep woodland olive, oxblood and warm parchment shades.',
+        modern: 'Chimney-breast alcoves in Victorian houses are rarely symmetrical; we laser-survey both sides so alcove bookcases and wardrobes restore visual balance.',
+        diagHeading: 'Victorian Deep-Moulded Elevation',
+        diagSub: 'Dado Height: 960mm · Deep Bolection Mouldings',
+        dadoY: 140, upperH: 88, lowerY: 152, lowerH: 50
+      },
+      edwardian: {
+        img: 'assets/card-wardrobes.jpg',
+        badge: 'Period Guide · Edwardian Light',
+        dates: 'APPROXIMATE DATES: 1901 – 1914',
+        title: 'Edwardian Airiness, Wide Halls & Practical Rooms',
+        desc: 'Edwardian country and suburban houses brought wider bays, lighter rooms and high picture rails—calling for calm, uncluttered shaker and in-frame joinery.',
+        profile: 'Clean square-edged or fine ovolo shaker frames aligned precisely with the room’s picture rail datum.',
+        finish: 'Soft warm ivory, pale sage, muted taupe and natural waxed oak internals.',
+        modern: 'Aligning full-height wardrobe cornices with the Edwardian picture rail line makes large storage volumes feel effortless and light.',
+        diagHeading: 'Edwardian Picture-Rail Datum',
+        diagSub: 'Picture Rail Alignment · Full-Height Shaker Proportion',
+        dadoY: 66, upperH: 18, lowerY: 78, lowerH: 124
+      },
+      artscrafts: {
+        img: 'assets/era-arts-crafts.jpg',
+        badge: 'Period Guide · Arts & Crafts',
+        dates: 'APPROXIMATE DATES: 1880 – 1920',
+        title: 'Arts & Crafts Honesty in Quartersawn English Oak',
+        desc: 'A renewed focus on honest materials, visible mortise-and-tenon pegs, quartersawn medullary rays and three-quarter height oak wall panelling.',
+        profile: 'Square-framed quartersawn oak panelling, stop-chamfered stiles, exposed through-tenons and hand-forged iron or hammered brass fittings.',
+        finish: 'Hardwax-oiled or fumed English oak showing natural silver-grain figure, paired with warm limewash walls above.',
+        modern: 'Particularly suited to Oxfordshire and Chiltern country houses, boot rooms, inglenook seating and studies.',
+        diagHeading: 'Arts & Crafts 3/4 Height Oak Panelling',
+        diagSub: 'Frieze Above · Multi-Panel Quartersawn Oak Grid',
+        dadoY: 82, upperH: 34, lowerY: 94, lowerH: 108
+      },
+      vernacular: {
+        img: 'assets/east-manor-window-seat.jpg',
+        badge: 'Period Guide · Cotswold & Chiltern Vernacular',
+        dates: '17TH – 19TH CENTURY FARMHOUSES & COTTAGES',
+        title: 'Country Vernacular: Low Beams, Stone & Angled Eaves',
+        desc: 'Farmhouses and village cottages across Rotherfield Peppard, the Chilterns and the Cotswolds feature undulating stone walls, low timber lintels and steep pitched eaves.',
+        profile: 'V-jointed tongue-and-groove boarding, simple ledger-and-brace details, flush in-frame shaker doors and window seats.',
+        finish: 'Breathable eggshell finishes in olive, lichen and warm stone paired with character-grade English oak.',
+        modern: 'Requires installation-led scribing around irregular beams and angled roof slopes—maximising every millimetre of storage.',
+        diagHeading: 'Vernacular Eaves & Boarding Rhythm',
+        diagSub: 'Low Sill Alignment: 520mm · Tongue-and-Groove Boarding',
+        dadoY: 174, upperH: 122, lowerY: 184, lowerH: 18
+      }
+    };
+
+    document.querySelectorAll('#eraTabs .era-tab-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#eraTabs .era-tab-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        const d = eraData[btn.dataset.era];
+        if (!d) return;
+        document.getElementById('eraImg').src = d.img;
+        document.getElementById('eraBadge').textContent = d.badge;
+        document.getElementById('eraDates').textContent = d.dates;
+        document.getElementById('eraTitle').textContent = d.title;
+        document.getElementById('eraDesc').textContent = d.desc;
+        document.getElementById('eraProfile').textContent = d.profile;
+        document.getElementById('eraFinish').textContent = d.finish;
+        document.getElementById('eraModern').textContent = d.modern;
+        document.getElementById('diagramHeading').textContent = d.diagHeading;
+        document.getElementById('diagramSub').textContent = d.diagSub;
+
+        // Animate the SVG wall panelling proportions!
+        document.getElementById('svgDado').setAttribute('y1', d.dadoY);
+        document.getElementById('svgDado').setAttribute('y2', d.dadoY);
+        document.getElementById('svgUpperL').setAttribute('height', d.upperH);
+        document.getElementById('svgUpperR').setAttribute('height', d.upperH);
+        document.getElementById('svgLowerL').setAttribute('y', d.lowerY);
+        document.getElementById('svgLowerL').setAttribute('height', d.lowerH);
+        document.getElementById('svgLowerR').setAttribute('y', d.lowerY);
+        document.getElementById('svgLowerR').setAttribute('height', d.lowerH);
+      });
+    });
+  </script>
+</body>
+</html>

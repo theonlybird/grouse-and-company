@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grouse &amp; Company | British Joinery &amp; Interiors — Design 01: The Country House Estate</title>
+  <link rel="stylesheet" href="assets/grouse-shared.css" />
+  <style>
+    /* ==========================================================================
+       DESIGN 01: THE COUNTRY HOUSE ESTATE
+       Warm Ivory (#F7F1ED) reading surfaces, Deep Olive (#15190A) sections,
+       Pale Stone (#EDE7E2) cards, Antique Brass (#A98752) hardware details.
+       ========================================================================== */
+
+    /* Optional Threshold Landing Overlay (Double Panelled Door Reveal) */
+    .landing-threshold {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      display: flex;
+      pointer-events: auto;
+      transition: visibility 1.1s ease;
+    }
+    .landing-threshold.is-open {
+      pointer-events: none;
+      visibility: hidden;
+    }
+    .threshold-leaf {
+      width: 50%;
+      height: 100%;
+      background: var(--olive-deep);
+      position: relative;
+      transition: transform 1.25s cubic-bezier(0.76, 0, 0.24, 1);
+      display: flex;
+       flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .threshold-leaf.left {
+      border-right: 1px solid rgba(169, 135, 82, 0.45);
+      align-items: flex-end;
+    }
+    .threshold-leaf.right {
+      border-left: 1px solid rgba(169, 135, 82, 0.45);
+      align-items: flex-start;
+    }
+    .landing-threshold.is-open .threshold-leaf.left {
+      transform: translateX(-100%);
+    }
+    .landing-threshold.is-open .threshold-leaf.right {
+      transform: translateX(100%);
+    }
+    /* Architectural Georgian Fielded Panel geometry on the threshold leaves */
+    .panel-moulding-top, .panel-moulding-bottom {
+      width: 72%;
+      margin: 18px 14%;
+      border: 1px solid rgba(169, 135, 82, 0.22);
+      position: relative;
+    }
+    .panel-moulding-top { height: 46vh; }
+    .panel-moulding-bottom { height: 24vh; }
+    .panel-moulding-top::after, .panel-moulding-bottom::after {
+      content: '';
+      position: absolute;
+      inset: 10px;
+      border: 1px solid rgba(247, 241, 237, 0.07);
+    }
+    .threshold-center-content {
+      position: absolute;
+      inset: 0;
+      z-index: 9010;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      color: var(--ivory-warm);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .landing-threshold.is-open .threshold-center-content {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    .threshold-eyebrow {
+      color: var(--brass-antique);
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .threshold-logo {
+      font-family: var(--font-brand);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      letter-spacing: 0.18em;
+      margin-bottom: 0.25rem;
+    }
+    .threshold-sub {
+      font-family: var(--font-brand);
+      font-size: clamp(0.95rem, 1.8vw, 1.35rem);
+      letter-spacing: 0.28em;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+    .threshold-brass-rule {
+      width: 120px;
+      height: 1px;
+      background: var(--brass-antique);
+      margin: 0 auto 1.5rem;
+    }
+    .threshold-quote {
+      max-width: 520px;
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(247, 241, 237, 0.85);
+      margin-bottom: 2.2rem;
+      line-height: 1.65;
+    }
+    .threshold-enter-btn {
+      background: transparent;
+      color: var(--ivory-warm);
+      border: 1px solid var(--brass-antique);
+      padding: 14px 34px;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.35s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .threshold-enter-btn:hover {
+      background: var(--brass-antique);
+      color: var(--olive-deep);
+    }
+
+    /* Top Location & Credentials Ribbon */
+    .top-ribbon {
+      background: var(--olive-deep);
+      color: rgba(247, 241, 237, 0.8);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 9px 4vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(169, 135, 82, 0.25);
+    }
+    .top-ribbon span.brass {
+      color: var(--brass-antique);
+    }
+    .reopen-threshold-btn {
+      background: none;
+      border: 1px solid rgba(169, 135, 82, 0.4);
+      color: var(--brass-antique);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      cursor: pointer;
+    }
+
+    /* Navigation Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(247, 241, 237, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--stone-border);
+      padding: 18px 4vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-lockup {
+      font-family: var(--font-brand);
+      color: var(--olive-deep);
+      text-decoration: none;
+      font-size: 1.35rem;
+      letter-spacing: 0.16em;
+    }
+    .brand-lockup small {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.58rem;
+      letter-spacing: 0.26em;
+      color: var(--brass-antique);
+      margin-top: 2px;
+    }
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 2.2rem;
+    }
+    .main-nav a {
+      color: var(--charcoal-ink);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      position: relative;
+      padding-bottom: 3px;
+    }
+    .main-nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: var(--brass-antique);
+      transition: width 0.3s ease;
+    }
+    .main-nav a:hover::after {
+      width: 100%;
+    }
+    .btn-primary {
+      background: var(--olive-deep);
+      color: var(--ivory-warm);
+      padding: 11px 24px;
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--olive-deep);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary:hover {
+      background: var(--brass-antique);
+      border-color: var(--brass-antique);
+      color: var(--olive-deep);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--olive-deep);
+      padding: 11px 24px;
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--olive-deep);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-secondary:hover {
+      background: var(--olive-deep);
+      color: var(--ivory-warm);
+    }
+
+    /* Hero Section with In-Frame Cockbead Proportions */
+    .hero-estate {
+      padding: 3.5rem 4vw 4.5rem;
+      max-width: 1480px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .hero-descriptor {
+      font-family: var(--font-heading);
+      font-size: 0.98rem;
+      color: var(--oak-stained);
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-descriptor::before {
+      content: '';
+      width: 36px;
+      height: 1px;
+      background: var(--brass-antique);
+    }
+    /* Brief explicitly instructs: "In the hero descriptor italicise only 'British'" */
+    .hero-descriptor em {
+      font-style: italic;
+      color: var(--olive-deep);
+    }
+    .hero-estate h1 {
+      font-size: clamp(2.15rem, 3.5vw, 3.25rem);
+      color: var(--olive-deep);
+      margin-bottom: 1.35rem;
+      line-height: 1.2;
+    }
+    .hero-lead {
+      font-size: 1.02rem;
+      color: var(--muted-ink);
+      margin-bottom: 1.5rem;
+    }
+    .hero-meta-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--stone-border);
+      border-bottom: 1px solid var(--stone-border);
+      margin-bottom: 2rem;
+      font-size: 0.78rem;
+    }
+    .hero-meta-strip div strong {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brass-antique);
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Hero Right Visual Frame with Woodwork Cockbead Geometry */
+    .hero-visual-wrapper {
+      position: relative;
+      padding: 16px;
+      border: 1px solid rgba(169, 135, 82, 0.45);
+      background: var(--stone-pale);
+    }
+    /* 45-degree cockbead mitre corner lines */
+    .hero-visual-wrapper .corner-mitre {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      pointer-events: none;
+    }
+    .hero-visual-wrapper .corner-mitre.tl { top: 0; left: 0; border-right: 1px solid var(--brass-antique); transform: rotate(-45deg); transform-origin: top left; }
+    .hero-visual-wrapper img {
+      width: 100%;
+      height: 540px;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-proportion-overlay {
+      position: absolute;
+      top: 28px;
+      left: 28px;
+      background: rgba(21, 25, 10, 0.84);
+      color: var(--ivory-warm);
+      padding: 10px 16px;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-left: 2px solid var(--brass-antique);
+    }
+
+    /* Four Client Routes Bar (Homeowners, Interior Designers, Architects, Builders) */
+    .audience-bar {
+      background: var(--stone-pale);
+      border-top: 1px solid var(--stone-border);
+      border-bottom: 1px solid var(--stone-border);
+      padding: 3rem 4vw;
+    }
+    .audience-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .audience-card {
+      padding-right: 1.5rem;
+      border-right: 1px solid var(--stone-border);
+    }
+    .audience-card:last-child {
+      border-right: none;
+    }
+    .audience-card .num {
+      font-family: var(--font-heading);
+      color: var(--brass-antique);
+      font-size: 0.82rem;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+    .audience-card h3 {
+      font-size: 1.12rem;
+      margin-bottom: 0.5rem;
+      color: var(--olive-deep);
+    }
+    .audience-card p {
+      font-size: 0.84rem;
+      color: var(--muted-ink);
+      margin: 0;
+    }
+
+    /* Section Containers */
+    .section-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 5.5rem 4vw;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--brass-antique);
+      font-weight: 500;
+      margin-bottom: 0.65rem;
+      display: block;
+    }
+    .section-header h2 {
+      font-size: clamp(1.85rem, 2.8vw, 2.65rem);
+      margin-bottom: 0;
+      max-width: 620px;
+    }
+    .section-header p {
+      max-width: 480px;
+      margin: 0;
+      color: var(--muted-ink);
+      font-size: 0.94rem;
+    }
+
+    /* The Five Core Systems Interactive Selector (40% / 20% / 15% / 15% / 10%) */
+    .systems-layout {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .system-tab-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--stone-border);
+    }
+    .system-tab {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--stone-border);
+      padding: 1.35rem 1rem;
+      text-align: left;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 52px 1fr auto;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.25s ease;
+      font-family: var(--font-body);
+    }
+    .system-tab:hover, .system-tab.active {
+      background: var(--stone-pale);
+      padding-left: 1.5rem;
+    }
+    .system-tab .pct {
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      color: var(--brass-antique);
+      border: 1px solid rgba(169, 135, 82, 0.4);
+      padding: 3px 7px;
+      text-align: center;
+    }
+    .system-tab.active .pct {
+      background: var(--olive-deep);
+      color: var(--ivory-warm);
+      border-color: var(--olive-deep);
+    }
+    .system-tab .title {
+      font-family: var(--font-heading);
+      font-size: 1.18rem;
+      color: var(--olive-deep);
+      display: block;
+    }
+    .system-tab .benefit {
+      font-size: 0.8rem;
+      color: var(--muted-ink);
+      display: block;
+      margin-top: 3px;
+    }
+    .system-display-card {
+      background: var(--stone-pale);
+      border: 1px solid var(--stone-border);
+      padding: 1.5rem;
+      position: relative;
+    }
+    .system-display-img-wrap {
+      position: relative;
+      overflow: hidden;
+      height: 410px;
+      margin-bottom: 1.5rem;
+    }
+    .system-display-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .system-specs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--stone-border);
+      font-size: 0.8rem;
+    }
+    .system-specs-grid strong {
+      display: block;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--brass-antique);
+    }
+
+    /* Deep Olive Workshop Motion Section */
+    .olive-band {
+      background: var(--olive-deep);
+      color: var(--ivory-warm);
+      padding: 5.5rem 4vw;
+      position: relative;
+    }
+    .olive-band .section-header p {
+      color: rgba(247, 241, 237, 0.76);
+    }
+    .workshop-showcase-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 7.5fr 4.5fr;
+      gap: 2.5rem;
+      align-items: stretch;
+    }
+    .workshop-info-panel {
+      background: rgba(247, 241, 237, 0.04);
+      border: 1px solid rgba(169, 135, 82, 0.32);
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .pillar-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+    }
+    .pillar-list li {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(169, 135, 82, 0.2);
+      font-size: 0.85rem;
+    }
+    .pillar-list li strong {
+      color: var(--brass-light);
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: 0.98rem;
+      margin-bottom: 2px;
+    }
+
+    /* Grouse Standards vs. Fully Bespoke + Four Pillars */
+    .routes-comparison {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .route-box {
+      background: var(--stone-pale);
+      border: 1px solid var(--stone-border);
+      padding: 2.25rem;
+      position: relative;
+    }
+    .route-box.featured {
+      background: var(--olive-deep);
+      color: var(--ivory-warm);
+      border-color: var(--brass-antique);
+    }
+    .route-box h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .route-box p {
+      font-size: 0.88rem;
+      opacity: 0.88;
+    }
+    .route-meta {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(169, 135, 82, 0.3);
+      font-size: 0.78rem;
+    }
+
+    /* Case Study Highlight: East Manor Farm */
+    .case-study-feature {
+      background: var(--stone-pale);
+      border: 1px solid var(--stone-border);
+      display: grid;
+      grid-template-columns: 6fr 6fr;
+      overflow: hidden;
+    }
+    .case-study-content {
+      padding: 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .case-study-dl {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin: 1.75rem 0;
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--stone-border);
+      border-bottom: 1px solid var(--stone-border);
+      font-size: 0.82rem;
+    }
+    .case-study-dl dt {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--brass-antique);
+      font-weight: 500;
+    }
+    .case-study-dl dd {
+      margin: 3px 0 0;
+      color: var(--olive-deep);
+      font-weight: 400;
+    }
+
+    /* Founder Story: Symm & Co (2009) -> Grouse Mountain -> Oxfordshire */
+    .founder-grid {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .founder-quote-box {
+      background: var(--olive-deep);
+      color: var(--ivory-warm);
+      padding: 2.5rem;
+      border-left: 3px solid var(--brass-antique);
+      margin-top: 1.5rem;
+    }
+    .founder-quote-box blockquote {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.08rem;
+      margin: 0 0 1rem;
+      line-height: 1.65;
+    }
+
+    /* Dual-Route Enquiry Form (Homeowner vs Professional Client) */
+    .enquiry-section {
+      background: var(--stone-pale);
+      border-top: 1px solid var(--stone-border);
+      padding: 5.5rem 4vw 7rem;
+    }
+    .enquiry-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 4.5fr 7.5fr;
+      gap: 3.5rem;
+    }
+    .client-type-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 1.75rem;
+    }
+    .client-pill {
+      background: var(--ivory-warm);
+      border: 1px solid var(--stone-border);
+      padding: 9px 16px;
+      font-family: var(--font-body);
+      font-size: 0.76rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .client-pill.active {
+      background: var(--olive-deep);
+      color: var(--ivory-warm);
+      border-color: var(--olive-deep);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .form-field.full {
+      grid-column: 1 / -1;
+    }
+    .form-field label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--olive-deep);
+      font-weight: 500;
+    }
+    .form-field input, .form-field select, .form-field textarea {
+      padding: 12px 14px;
+      border: 1px solid var(--stone-border);
+      background: var(--ivory-warm);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: var(--charcoal-ink);
+    }
+    .pro-fields {
+      display: none;
+      grid-column: 1 / -1;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      padding: 1.25rem;
+      background: rgba(169, 135, 82, 0.1);
+      border-left: 2px solid var(--brass-antique);
+    }
+    .pro-fields.visible {
+      display: grid;
+    }
+
+    @media (max-width: 980px) {
+      .hero-estate, .systems-layout, .workshop-showcase-grid, .routes-comparison, .case-study-feature, .founder-grid, .enquiry-container, .audience-grid {
+        grid-template-columns: 1fr;
+      }
+      .main-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- OPTIONAL ARCHITECTURAL THRESHOLD LANDING PAGE (Opens like Georgian panelled double doors) -->
+  <div class="landing-threshold" id="estateThreshold">
+    <div class="threshold-leaf left">
+      <div class="panel-moulding-top"></div>
+      <div class="panel-moulding-bottom"></div>
+    </div>
+    <div class="threshold-leaf right">
+      <div class="panel-moulding-top"></div>
+      <div class="panel-moulding-bottom"></div>
+    </div>
+    <div class="threshold-center-content">
+      <span class="threshold-eyebrow">South Oxfordshire · Chilterns · Cotswolds · Royal Berkshire</span>
+      <div class="threshold-logo">GROUSE</div>
+      <div class="threshold-sub">&amp; COMPANY</div>
+      <div class="threshold-brass-rule"></div>
+      <p class="threshold-quote">
+        “For me, good joinery is not just about storage or finish. It is about how a room feels when you walk into it. The weight of a handle. The warmth of timber. The way a drawer opens.”
+      </p>
+      <button class="threshold-enter-btn" onclick="document.getElementById('estateThreshold').classList.add('is-open')">
+        <span>Step Inside the House</span>
+        <span>→</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Top Credentials & Threshold Replay Bar -->
+  <div class="top-ribbon">
+    <div>Based in <span class="brass">South Oxfordshire</span> · Serving Oxfordshire, Berkshire, Buckinghamshire, The Chilterns &amp; Cotswolds</div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span>07555 604890 · info@grouseandcompany.co.uk</span>
+      <button class="reopen-threshold-btn" onclick="document.getElementById('estateThreshold').classList.remove('is-open')">Replay Door Threshold Intro</button>
+    </div>
+  </div>
+
+  <!-- Sticky Navigation Header -->
+  <header class="site-header">
+    <a href="#" class="brand-lockup">
+      GROUSE &amp; COMPANY
+      <small>BRITISH JOINERY &amp; INTERIORS</small>
+    </a>
+    <nav class="main-nav">
+      <a href="#bespoke-interiors">Bespoke Interiors</a>
+      <a href="#our-work">Our Work</a>
+      <a href="#workshop-motion">Workshop &amp; Craft</a>
+      <a href="#our-approach">Our Approach</a>
+      <a href="#about">About Adam</a>
+      <a href="design-3-british-interior-editorial.html">The British Interior</a>
+    </nav>
+    <a href="#start-project" class="btn-primary">Tell Us About Your Project →</a>
+  </header>
+
+  <!-- Hero Section (Exact copy & italicised 'British' rule from Adam's Brief) -->
+  <section class="hero-estate">
+    <div>
+      <div class="hero-descriptor">
+        <span><em>British</em> Joinery &amp; Interiors</span>
+      </div>
+      <h1>Thoughtful fitted furniture and interior joinery for characterful homes.</h1>
+      <p class="hero-lead">
+        We work with homeowners, interior designers, architects and builders to create purposeful fitted cabinetry and carefully resolved interiors. Every decision serves the way you live while respecting the proportions, materials and character of the building.
+      </p>
+      <div class="hero-meta-strip">
+        <div>
+          <strong>Supporting Line</strong>
+          Modern living, rooted in character.
+        </div>
+        <div>
+          <strong>Commission Routes</strong>
+          Grouse Standards &amp; Fully Bespoke
+        </div>
+        <div>
+          <strong>Base</strong>
+          Rotherfield Peppard, Oxfordshire
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="#start-project" class="btn-primary">Tell us about your project →</a>
+        <a href="#our-work" class="btn-secondary">Explore our work</a>
+      </div>
+    </div>
+
+    <div class="hero-visual-wrapper mitre-frame">
+      <div class="hero-proportion-overlay">
+        In-Frame Cockbead · Deep Olive &amp; Seasoned Oak
+      </div>
+      <img src="assets/hero-olive-living-room.jpg" alt="Bespoke countryside drawing room panelling and cabinetry in deep olive" />
+      <span class="concept-tag">Concept Reference · Grouse Standards Palette</span>
+    </div>
+  </section>
+
+  <!-- Who We Are For: Four Client Groups -->
+  <section class="audience-bar">
+    <div class="audience-grid">
+      <div class="audience-card">
+        <span class="num">01 / CLIENT GROUP</span>
+        <h3>Homeowners</h3>
+        <p>Guidance on layout, materials and period details for country houses, farmhouses and village properties—with a calm route from first ideas to installation.</p>
+      </div>
+      <div class="audience-card">
+        <span class="num">02 / CLIENT GROUP</span>
+        <h3>Interior Designers</h3>
+        <p>A collaborative joinery partner who respects your creative direction, develops buildable CAD details and coordinates samples, manufacture and fitting.</p>
+      </div>
+      <div class="audience-card">
+        <span class="num">03 / CLIENT GROUP</span>
+        <h3>Architects</h3>
+        <p>Technically resolved joinery, accurate Microvellum drawings, clear specification and careful integration with historic fabric and the wider design team.</p>
+      </div>
+      <div class="audience-card">
+        <span class="num">04 / CLIENT GROUP</span>
+        <h3>Builders &amp; Contractors</h3>
+        <p>Dependable delivery of defined joinery and interior finishing packages, with clear scope, coordinated programmes, site readiness and quality control.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scroll-Reactive Woodwork Geometry Divider (Dovetail Joint Assembly) -->
+  <div class="dovetail-divider" data-scroll-joint>
+    <span>MORTISE &amp; DOVETAIL PROPORTION</span>
+    <svg class="dovetail-svg" viewBox="0 0 140 28" fill="none">
+      <g class="left-pin" stroke="#A98752" stroke-width="1.2">
+        <path d="M4 6 H58 L66 2 V26 L58 22 H4 Z" fill="rgba(169,135,82,0.12)" />
+      </g>
+      <g class="right-tail" stroke="#15190A" stroke-width="1.2">
+        <path d="M136 6 H82 L74 2 V26 L82 22 H136 Z" fill="rgba(21,25,10,0.08)" />
+      </g>
+    </svg>
+    <span>RESOLVED BEFORE BUILD</span>
+  </div>
+
+  <!-- The Five Core Systems (40% Wardrobes, 20% Media, 15% Alcoves, 15% Boot Rooms, 10% Panelling) -->
+  <section class="section-wrap" id="bespoke-interiors">
+    <div class="section-header">
+      <div>
+        <span class="eyebrow">Bespoke Countryside Interiors · Core Systems</span>
+        <h2>Five architectural joinery systems, tailored to the proportions of your house.</h2>
+      </div>
+      <p>
+        Alongside kitchens, pantries, sculleries and home libraries, our work centres on five core joinery systems designed to bring calm utility to complicated period rooms.
+      </p>
+    </div>
+
+    <div class="systems-layout">
+      <div class="system-tab-list" id="systemTabs">
+        <button class="system-tab active" data-img="assets/card-wardrobes.jpg" data-title="Bespoke Fitted Wardrobes &amp; Dressing Rooms" data-desc="Considered storage and dressing spaces scribed cleanly into angled eaves, uneven chimney breasts and period cornice lines. Available with dovetailed solid oak internals, velvet-lined jewellery trays and soft motion-sensor lighting." data-spec1="In-frame cockbead or shaker" data-spec2="Solid oak dovetailed drawers" data-spec3="Scribed to out-of-square walls">
+          <span class="pct">01</span>
+          <div>
+            <span class="title">Wardrobes &amp; Dressing</span>
+            <span class="benefit">Considered storage and dressing spaces.</span>
+          </div>
+          <span>→</span>
+        </button>
+
+        <button class="system-tab" data-img="assets/card-study-library.jpg" data-title="Media Units &amp; Library Cabinetry" data-desc="Technology integrated quietly into the room. Acoustic speaker fabric, concealed cable management, pocket doors and ventilated equipment bays built within classical Georgian or Edwardian bookcase proportions." data-spec1="Concealed cable &amp; thermal vents" data-spec2="Stained English oak &amp; painted finish" data-spec3="Custom dado &amp; cornice alignment">
+          <span class="pct">02</span>
+          <div>
+            <span class="title">Media Units &amp; Studies</span>
+            <span class="benefit">Technology integrated quietly into the room.</span>
+          </div>
+          <span>→</span>
+        </button>
+
+        <button class="system-tab" data-img="assets/east-manor-window-seat.jpg" data-title="Alcove Cabinetry &amp; Window Seats" data-desc="Useful cabinetry that fits existing architecture. Older homes rarely have plumb walls or level floors; we laser-survey every alcove so flanking bookcases and window seats look as though they were built with the house." data-spec1="Laser plumb &amp; level survey" data-spec2="Matched skirting &amp; architrave profiles" data-spec3="Concealed or Armac Martin brass hinges">
+          <span class="pct">03</span>
+          <div>
+            <span class="title">Alcoves &amp; Eaves</span>
+            <span class="benefit">Useful cabinetry that fits existing architecture.</span>
+          </div>
+          <span>→</span>
+        </button>
+
+        <button class="system-tab" data-img="assets/boot-room-wide.jpg" data-title="Country Boot Rooms, Utility &amp; Sculleries" data-desc="Practical spaces for everyday country life. Hardwearing seasoned oak benches, ventilated welly and dog-lead lockers, coat hooks in aged brass, and durable painted tongue-and-groove boarding." data-spec1="Hardwax-oiled solid oak seating" data-spec2="Breathable lower boot lattices" data-spec3="Heavy-duty country-life hardware">
+          <span class="pct">04</span>
+          <div>
+            <span class="title">Boot Rooms &amp; Utilities</span>
+            <span class="benefit">Practical spaces for everyday country life.</span>
+          </div>
+          <span>→</span>
+        </button>
+
+        <button class="system-tab" data-img="assets/detail-panelling.jpg" data-title="Architectural Wall Panelling &amp; Mouldings" data-desc="Proportion, texture and architectural detail. From restrained Georgian fielded dado panelling to Arts &amp; Crafts quartersawn oak boarding, designed around existing sash windows, doors and ceiling heights." data-spec1="Georgian, Victorian &amp; Arts &amp; Crafts" data-spec2="Bespoke spindle moulder profiles" data-spec3="Breathable heritage lime-wall detailing">
+          <span class="pct">05</span>
+          <div>
+            <span class="title">Architectural Panelling</span>
+            <span class="benefit">Proportion, texture and architectural detail.</span>
+          </div>
+          <span>→</span>
+        </button>
+      </div>
+
+      <div class="system-display-card mitre-frame">
+        <div class="system-display-img-wrap">
+          <img id="systemActiveImg" src="assets/card-wardrobes.jpg" alt="Selected joinery system" />
+          <span class="concept-tag">Concept Reference · Grouse System</span>
+        </div>
+        <h3 id="systemActiveTitle" style="font-size:1.5rem; margin-bottom:0.5rem;">Bespoke Fitted Wardrobes &amp; Dressing Rooms</h3>
+        <p id="systemActiveDesc" style="color:var(--muted-ink); font-size:0.9rem; margin-bottom:1.25rem;">
+          Considered storage and dressing spaces scribed cleanly into angled eaves, uneven chimney breasts and period cornice lines. Available with dovetailed solid oak internals, velvet-lined jewellery trays and soft motion-sensor lighting.
+        </p>
+        <div class="system-specs-grid">
+          <div>
+            <strong>Construction</strong>
+            <span id="systemSpec1">In-frame cockbead or shaker</span>
+          </div>
+          <div>
+            <strong>Internal Detailing</strong>
+            <span id="systemSpec2">Solid oak dovetailed drawers</span>
+          </div>
+          <div>
+            <strong>Site Integration</strong>
+            <span id="systemSpec3">Scribed to out-of-square walls</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CINEMATIC WORKSHOP MOTION SHOWCASE (Varnish / Laser Guide / Sawdust Blow) -->
+  <section class="olive-band" id="workshop-motion">
+    <div style="max-width:1400px; margin:0 auto;">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Cinematic Workshop Motion · Live Interactive Preview</span>
+          <h2 style="color:var(--ivory-warm);">Clear thinking before careful making.</h2>
+        </div>
+        <p>
+          Preview the three sensory workshop motion loops designed for Grouse &amp; Co—bringing the tactile warmth of oiled oak, laser-guided site precision, and freshly cut joinery into the browsing experience.
+        </p>
+      </div>
+
+      <div class="workshop-showcase-grid">
+        <div class="workshop-cinema-frame">
+          <div style="height:460px; position:relative;">
+            <canvas id="estateWorkshopCanvas" data-workshop-canvas="varnish"></canvas>
+          </div>
+          <div class="workshop-reel-controls">
+            <div class="workshop-reel-btns">
+              <button class="reel-btn active" data-workshop-target="estateWorkshopCanvas" data-workshop-scene="varnish">
+                01 · Varnishing Oak Grain
+              </button>
+              <button class="reel-btn" data-workshop-target="estateWorkshopCanvas" data-workshop-scene="laser">
+                02 · Laser Datum Calibration
+              </button>
+              <button class="reel-btn" data-workshop-target="estateWorkshopCanvas" data-workshop-scene="sawdust">
+                03 · Gentle Blow of Sawdust
+              </button>
+            </div>
+            <span class="reel-spec-note">Move cursor across viewport · Video Slot: 16:9 MP4 / WebM Loop</span>
+          </div>
+        </div>
+
+        <div class="workshop-info-panel">
+          <div>
+            <span class="eyebrow">How Grouse Stands Out</span>
+            <h3 style="font-size:1.45rem; color:var(--ivory-warm); margin-bottom:0.75rem;">Proof over promises.</h3>
+            <p style="font-size:0.86rem; color:rgba(247,241,237,0.78);">
+              Instead of repeating words like “luxury” or “unrivalled”, we show how great joinery is actually achieved—combining our shared production resource at <strong>The Workshop</strong> with personal accountability from survey to aftercare.
+            </p>
+            <ul class="pillar-list">
+              <li>
+                <strong>1. Period-Home Intelligence</strong>
+                Understanding Georgian proportion, Victorian detail, Edwardian influences and Cotswold stone character.
+              </li>
+              <li>
+                <strong>2. Design-for-Manufacture Expertise</strong>
+                Microvellum CAD drawings, hardware schedules, service routes and tolerances signed off before a single board is cut.
+              </li>
+              <li>
+                <strong>3. Installation-Led Scribe &amp; Fit</strong>
+                Designed for uneven lime-plaster walls, out-of-square corners, historic skirting and clean site protection.
+              </li>
+              <li>
+                <strong>4. Loake-Inspired Aftercare Pack</strong>
+                Every commission concludes with a care booklet, paint &amp; stain schedule, hardware guide and wax-sealed handover notes.
+              </li>
+            </ul>
+          </div>
+          <a href="design-2-architectural-atelier.html" class="btn-primary" style="background:var(--brass-antique); color:var(--olive-deep); border-color:var(--brass-antique); justify-content:center;">
+            Explore Our Technical Process (Design 02) →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grouse Standards vs. Fully Bespoke (From Page 3 of Proposal Pack) -->
+  <section class="section-wrap" id="our-approach">
+    <div class="section-header">
+      <div>
+        <span class="eyebrow">Two Clear Routes · One Considered Way of Working</span>
+        <h2>Guidance with room for individuality.</h2>
+      </div>
+      <p>
+        Many clients find renovation overwhelming: too many materials, too many hardware options, and fragmented responsibility. We remove uncertainty early on.
+      </p>
+    </div>
+
+    <div class="routes-comparison">
+      <div class="route-box featured">
+        <span class="eyebrow">Curated Specification</span>
+        <h3>Grouse Standards</h3>
+        <p>
+          A curated route using handpicked colours, seasoned timbers, mouldings, construction details and aged brass hardware (such as Armac Martin profiles) that we know belong together in a British country home.
+        </p>
+        <div class="route-meta">
+          <strong>Client Benefit:</strong> Make fewer, better decisions with Physical Sample Boards, labelled specification cards and transparent upgrade pricing.
+        </div>
+      </div>
+
+      <div class="route-box">
+        <span class="eyebrow" style="color:var(--oak-stained);">Complete Design Freedom</span>
+        <h3>Fully Bespoke</h3>
+        <p>
+          For homeowners, architects and interior designers with a singular vision or complex architectural brief. We develop custom moulding knives, specialist veneers, stone integrations and one-off proportions.
+        </p>
+        <div class="route-meta">
+          <strong>Client Benefit:</strong> Not a separate tier of build quality—simply wider design latitude backed by the same CAD and production rigour.
+        </div>
+      </div>
+
+      <div class="route-box">
+        <span class="eyebrow" style="color:var(--oak-stained);">6-Stage Programme Control</span>
+        <h3>Considered Delivery</h3>
+        <p>
+          Every commission follows our 6-stage sign-off sequence: 1. Agreement &amp; Deposit (50%), 2. Technical Site Measure, 3. Specification Sign-Off, 4. CAD Production Pack, 5. Workshop QC (40%), and 6. Installation &amp; Aftercare (10%).
+        </p>
+        <div class="route-meta">
+          <strong>Client Benefit:</strong> One accountable lead from initial feasibility through final hinge adjustment.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Selected Work / Proposal Case Study: East Manor Farm, Peppard Common -->
+  <section class="section-wrap" id="our-work" style="padding-top:1rem;">
+    <div class="section-header">
+      <div>
+        <span class="eyebrow">Selected Commission Context · South Oxfordshire</span>
+        <h2>East Manor Farm, Rotherfield Peppard</h2>
+      </div>
+      <p>
+        How we read the setting, history and architectural fabric of a period Oxfordshire farmhouse before designing a single cupboard.
+      </p>
+    </div>
+
+    <div class="case-study-feature mitre-frame">
+      <div style="position:relative; min-height:440px;">
+        <img src="assets/east-manor-window-seat.jpg" alt="East Manor Farm bespoke window seat and alcove joinery" style="width:100%; height:100%; object-fit:cover; display:block;" />
+        <span class="concept-tag">Proposal Visualisation · East Manor Farm (Ref 135)</span>
+      </div>
+      <div class="case-study-content">
+        <span class="eyebrow">Case Study &amp; Proposal Exemplar</span>
+        <h3 style="font-size:1.75rem; margin-bottom:0.75rem;">Bespoke Storage Within Angled Eaves &amp; Window Bay</h3>
+        <p style="color:var(--muted-ink); font-size:0.9rem;">
+          East Manor Farm carries the quiet character of a 17th-century Rotherfield Peppard farmhouse overlooking the common. The brief called for kitchen joinery, utility housekeeping cupboards and angled eaves wardrobes that feel calm, visually light and settled within the room—never bolted on.
+        </p>
+        <dl class="case-study-dl">
+          <div>
+            <dt>Setting &amp; Context</dt>
+            <dd>Peppard Common, South Oxfordshire</dd>
+          </div>
+          <div>
+            <dt>Architectural Constraint</dt>
+            <dd>Angled eaves &amp; historic skirting</dd>
+          </div>
+          <div>
+            <dt>Joinery Resolution</dt>
+            <dd>Colour-matched frames, scribed stiles</dd>
+          </div>
+          <div>
+            <dt>Optional Enhancements</dt>
+            <dd>Dovetailed oak drawers &amp; sensor LEDs</dd>
+          </div>
+        </dl>
+        <div style="display:flex; gap:1rem; align-items:center; flex-wrap:wrap;">
+          <a href="#start-project" class="btn-primary">Request a Sample Proposal Pack →</a>
+          <span style="font-size:0.76rem; color:var(--muted-ink);">Includes Scope Summary, CAD Sign-off &amp; Enhancement Menu</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Adam Toms & The Story Behind the Name -->
+  <section class="section-wrap" id="about">
+    <div class="founder-grid">
+      <div class="mitre-frame" style="background:var(--stone-pale); padding:18px;">
+        <img src="assets/oxfordshire-village-hero.jpg" alt="Rotherfield Peppard Oxfordshire countryside" style="width:100%; height:300px; object-fit:cover; display:block; margin-bottom:14px;" />
+        <img src="assets/van-side-profile.jpg" alt="Grouse & Company livery van in deep olive and antique brass" style="width:100%; height:210px; object-fit:cover; display:block;" />
+      </div>
+      <div>
+        <span class="eyebrow">The Story Behind the Name · Founder</span>
+        <h2 style="font-size:2.3rem; margin-bottom:1rem;">From Oxford heritage construction to Vancouver’s Grouse Mountain—and home again.</h2>
+        <p style="color:var(--muted-ink); font-size:0.95rem;">
+          I began my career in 2009 at <strong>Symm &amp; Company</strong>, one of Oxford’s most respected heritage construction and joinery firms dating back to 1815. Over the years, working across remarkable period houses taught me what separates joinery that merely fills a gap from work that truly belongs to a building.
+        </p>
+        <p style="color:var(--muted-ink); font-size:0.95rem;">
+          While living and working in a bespoke workshop in Canada for three years, I wrote the business plan for this company in my office illuminated by the ski-run lights of <strong>Grouse Mountain in Vancouver</strong>. Combined with the traditional British game bird that reflects our countryside home—and <em>“&amp; Company”</em> as a nod to where my career began at Symm—<strong>Grouse &amp; Company</strong> was born.
+        </p>
+        <div class="founder-quote-box">
+          <blockquote>
+            “After spending years working abroad, each time I returned home I had a deeper appreciation for English architecture, history and the homes tucked away in our villages and countryside. They deserve work that respects what is already there, while carefully bringing the home forward for modern life.”
+          </blockquote>
+          <div style="font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--brass-antique);">
+            — Adam Toms, Founder · Grouse &amp; Company Ltd
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Start a Project Enquiry Form (Homeowner + Professional Routes per Brief Page 6) -->
+  <section class="enquiry-section" id="start-project">
+    <div class="enquiry-container">
+      <div>
+        <span class="eyebrow">Start a Conversation</span>
+        <h2 style="font-size:2.2rem; margin-bottom:1rem;">Tell us about your project.</h2>
+        <p style="color:var(--muted-ink); font-size:0.92rem; margin-bottom:1.5rem;">
+          Whether you are a homeowner planning a single room or a whole-house joinery package, or an architect, interior designer or builder seeking a dependable joinery partner, we would be pleased to hear from you.
+        </p>
+        <div style="background:var(--ivory-warm); padding:1.5rem; border:1px solid var(--stone-border); font-size:0.84rem;">
+          <strong style="display:block; color:var(--olive-deep); text-transform:uppercase; letter-spacing:0.1em; font-size:0.72rem; margin-bottom:0.5rem;">What Happens Next</strong>
+          <ol style="margin:0; padding-left:1.2rem; color:var(--muted-ink); display:flex; flex-direction:column; gap:0.45rem;">
+            <li>We review your brief, postcode and any initial drawings or photographs within 2 working days.</li>
+            <li>A brief telephone conversation with Adam to discuss suitability, timescales and approach.</li>
+            <li>An initial site visit in Oxfordshire, Berkshire, Buckinghamshire, the Chilterns or Cotswolds, followed by a clear Grouse Proposal Pack.</li>
+          </ol>
+          <div style="margin-top:1.25rem; padding-top:1rem; border-top:1px solid var(--stone-border); color:var(--olive-deep);">
+            <strong>Direct Contact:</strong><br />
+            info@grouseandcompany.co.uk · 07555 604890
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--ivory-warm); padding:2.5rem; border:1px solid var(--stone-border);">
+        <span style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--brass-antique); display:block; margin-bottom:0.6rem;">I am enquiring as a:</span>
+        <div class="client-type-pills" id="clientPills">
+          <button type="button" class="client-pill active" data-pro="false">Homeowner</button>
+          <button type="button" class="client-pill" data-pro="true">Interior Designer</button>
+          <button type="button" class="client-pill" data-pro="true">Architect</button>
+          <button type="button" class="client-pill" data-pro="true">Builder / Main Contractor</button>
+        </div>
+
+        <form onsubmit="event.preventDefault(); alert('Thank you — in production this form routes directly to Adam at info@grouseandcompany.co.uk or his CRM.');">
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="f-name">Your Name *</label>
+              <input id="f-name" type="text" required placeholder="e.g. Annie &amp; William Bird" />
+            </div>
+            <div class="form-field">
+              <label for="f-email">Email Address *</label>
+              <input id="f-email" type="email" required placeholder="you@example.co.uk" />
+            </div>
+            <div class="form-field">
+              <label for="f-postcode">Property Postcode *</label>
+              <input id="f-postcode" type="text" required placeholder="e.g. RG9 / OX10" />
+            </div>
+            <div class="form-field">
+              <label for="f-phone">Telephone (Optional)</label>
+              <input id="f-phone" type="tel" placeholder="07..." />
+            </div>
+
+            <!-- Conditional Professional Fields (Architect / Designer / Builder) -->
+            <div class="pro-fields" id="proFieldsBox">
+              <div class="form-field">
+                <label for="f-company">Practice / Company Name</label>
+                <input id="f-company" type="text" placeholder="Studio or Contractor Name" />
+              </div>
+              <div class="form-field">
+                <label for="f-stage">Current RIBA / Project Stage</label>
+                <select id="f-stage">
+                  <option>Concept / Feasibility</option>
+                  <option>Detailed Design / Tender</option>
+                  <option>Technical Design / Pre-Start</option>
+                  <option>Live on Site</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="f-system">Primary Joinery System *</label>
+              <select id="f-system">
+                <option>Fitted Wardrobes &amp; Dressing Space</option>
+                <option>Media Unit / Library / Study</option>
+                <option>Alcove Cabinetry / Window Seat</option>
+                <option>Boot Room / Utility / Pantry</option>
+                <option>Period Wall Panelling</option>
+                <option>Kitchen or Multi-Room Package</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="f-investment">Indicative Investment (Optional)</label>
+              <select id="f-investment">
+                <option>Prefer to discuss after initial guidance</option>
+                <option>£5,000 – £15,000 (Single room / system)</option>
+                <option>£15,000 – £35,000 (Multi-room / Kitchen package)</option>
+                <option>£35,000+ (Whole-property joinery commission)</option>
+              </select>
+            </div>
+            <div class="form-field full">
+              <label for="f-brief">Tell Us About the Property &amp; Brief *</label>
+              <textarea id="f-brief" rows="4" required placeholder="Tell us a little about the age and character of the home, the rooms you are considering, and any target timings..."></textarea>
+            </div>
+            <div class="form-field full" style="flex-direction:row; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-top:0.5rem;">
+              <span style="font-size:0.75rem; color:var(--muted-ink);">Plans, elevations or room photographs can be attached or shared after our initial reply.</span>
+              <button type="submit" class="btn-primary" style="cursor:pointer;">Submit Project Enquiry →</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Design Switcher Dock -->
+  <nav class="grouse-design-dock" aria-label="Design Prototype Switcher">
+    <span class="dock-label">Grouse &amp; Co Review</span>
+    <a href="index.html">★ Overview &amp; Video Studio</a>
+    <a href="design-1-heritage-estate.html" class="active">01 · Country House Estate</a>
+    <a href="design-2-architectural-atelier.html">02 · Resolve Before Build (CAD)</a>
+    <a href="design-3-british-interior-editorial.html">03 · The British Interior</a>
+    <a href="design-4-nocturne-craft.html">04 · Olive &amp; Brass Nocturne</a>
+  </nav>
+
+  <script src="assets/grouse-motion.js"></script>
+  <script>
+    // Interactive Five Core Systems Tab Switcher
+    document.querySelectorAll('#systemTabs .system-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('#systemTabs .system-tab').forEach((t) => t.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('systemActiveImg').src = tab.dataset.img;
+        document.getElementById('systemActiveTitle').textContent = tab.dataset.title;
+        document.getElementById('systemActiveDesc').textContent = tab.dataset.desc;
+        document.getElementById('systemSpec1').textContent = tab.dataset.spec1;
+        document.getElementById('systemSpec2').textContent = tab.dataset.spec2;
+        document.getElementById('systemSpec3').textContent = tab.dataset.spec3;
+      });
+    });
+
+    // Homeowner vs Professional Enquiry Switcher
+    document.querySelectorAll('#clientPills .client-pill').forEach((pill) => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('#clientPills .client-pill').forEach((p) => p.classList.remove('active'));
+        pill.classList.add('active');
+        const isPro = pill.dataset.pro === 'true';
+        document.getElementById('proFieldsBox').classList.toggle('visible', isPro);
+      });
+    });
+  </script>
+</body>
+</html>

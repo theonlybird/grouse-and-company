@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grouse &amp; Company | Design 02: Resolve Before Build — Architectural Joinery Atelier</title>
+  <link rel="stylesheet" href="assets/grouse-shared.css" />
+  <style>
+    /* ==========================================================================
+       DESIGN 02: RESOLVE BEFORE BUILD — ARCHITECTURAL ATELIER
+       Draftsman's Pale Stone (#EDE7E2) + Deep Olive (#15190A) CAD Blueprint Grid,
+       Live Laser Plumb & Datum Scroll Ruler, X-Ray CAD-to-Craft Comparison Slider,
+       and Interactive Woodwork Profile Cross-Sections.
+       ========================================================================== */
+
+    body {
+      background-color: var(--stone-pale);
+      background-image:
+        linear-gradient(to right, rgba(21, 25, 10, 0.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(21, 25, 10, 0.045) 1px, transparent 1px);
+      background-size: 48px 48px;
+      padding-left: 48px; /* Space for the live vertical laser plumb & timber ruler */
+    }
+
+    /* Fixed Left Architectural Millimetre & Laser Plumb Ruler */
+    .scribe-margin-ruler {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 48px;
+      background: var(--olive-deep);
+      border-right: 1px solid rgba(169, 135, 82, 0.45);
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      color: var(--brass-antique);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      user-select: none;
+    }
+    .ruler-ticks {
+      position: absolute;
+      inset: 60px 0;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(169, 135, 82, 0.55) 0px,
+        rgba(169, 135, 82, 0.55) 1px,
+        transparent 1px,
+        transparent 12px
+      );
+      width: 14px;
+      right: 0;
+    }
+    /* Laser Plumb Node that slides down the ruler as user scrolls */
+    .laser-plumb-marker {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(64px + var(--scroll-ratio, 0) * (100vh - 140px));
+      height: 2px;
+      background: var(--laser-red);
+      box-shadow: 0 0 12px var(--laser-red);
+      transition: top 0.08s linear;
+    }
+    .laser-plumb-marker::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: -4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--laser-red);
+    }
+    .vertical-datum-text {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      white-space: nowrap;
+      color: var(--ivory-warm);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      z-index: 2;
+      background: var(--olive-deep);
+      padding: 8px 0;
+    }
+
+    /* Top Technical Header */
+    .atelier-header {
+      background: rgba(237, 231, 226, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(21, 25, 10, 0.16);
+      padding: 16px 4vw;
+      position: sticky;
+      top: 0;
+      z-index: 1500;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 2rem;
+    }
+    .atelier-brand {
+      font-family: var(--font-brand);
+      font-size: 1.25rem;
+      letter-spacing: 0.16em;
+      color: var(--olive-deep);
+      text-decoration: none;
+    }
+    .atelier-brand span {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.56rem;
+      letter-spacing: 0.24em;
+      color: var(--oak-stained);
+    }
+    .atelier-nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .atelier-nav a {
+      text-decoration: none;
+      color: var(--olive-deep);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 400;
+    }
+    .atelier-nav a:hover {
+      color: var(--brass-antique);
+    }
+    .spec-cta {
+      background: var(--olive-deep);
+      color: var(--ivory-warm);
+      text-decoration: none;
+      padding: 10px 20px;
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid var(--brass-antique);
+      transition: all 0.25s ease;
+    }
+    .spec-cta:hover {
+      background: var(--brass-antique);
+      color: var(--olive-deep);
+    }
+
+    /* Architectural Blueprint Hero with Live Laser Guide Canvas */
+    .atelier-hero {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 3rem 4vw 4rem;
+      display: grid;
+      grid-template-columns: 5.2fr 6.8fr;
+      gap: 3rem;
+      align-items: stretch;
+    }
+    .atelier-hero-left {
+      background: var(--ivory-warm);
+      border: 1px solid rgba(21, 25, 10, 0.18);
+      padding: 2.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    /* Technical drawing corner registration marks */
+    .reg-mark {
+      position: absolute;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      color: var(--brass-antique);
+      font-family: monospace;
+    }
+    .reg-mark.tl { top: 10px; left: 14px; }
+    .reg-mark.tr { top: 10px; right: 14px; }
+    .atelier-hero-left h1 {
+      font-size: clamp(2rem, 3.1vw, 2.9rem);
+      color: var(--olive-deep);
+      margin: 0.75rem 0 1.1rem;
+    }
+    .atelier-hero-left h1 em {
+      font-style: italic;
+      color: var(--oak-stained);
+    }
+    .cad-callout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      padding: 1.25rem 0;
+      border-top: 1px dashed rgba(21, 25, 10, 0.22);
+      border-bottom: 1px dashed rgba(21, 25, 10, 0.22);
+    }
+    .cad-callout-item strong {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brass-antique);
+    }
+    .cad-callout-item span {
+      font-size: 0.84rem;
+      color: var(--olive-deep);
+      font-weight: 400;
+    }
+
+    /* Interactive Woodwork Geometry & Moulding Profile Inspector */
+    .geometry-workbench {
+      background: var(--olive-deep);
+      color: var(--ivory-warm);
+      padding: 5rem 4vw;
+      border-top: 2px solid var(--brass-antique);
+      border-bottom: 2px solid var(--brass-antique);
+    }
+    .workbench-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .profile-selector-grid {
+      display: grid;
+      grid-template-columns: 4.5fr 7.5fr;
+      gap: 3rem;
+      margin-top: 2.5rem;
+      align-items: center;
+    }
+    .profile-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .profile-btn {
+      background: rgba(247, 241, 237, 0.04);
+      border: 1px solid rgba(169, 135, 82, 0.3);
+      color: var(--ivory-warm);
+      padding: 1.15rem 1.35rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: var(--font-body);
+    }
+    .profile-btn:hover, .profile-btn.active {
+      background: rgba(169, 135, 82, 0.16);
+      border-color: var(--brass-antique);
+      transform: translateX(6px);
+    }
+    .profile-btn .code {
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
+      color: var(--brass-antique);
+      display: block;
+      text-transform: uppercase;
+    }
+    .profile-btn .name {
+      font-family: var(--font-heading);
+      font-size: 1.12rem;
+      display: block;
+      margin: 3px 0;
+    }
+    .profile-btn .sub {
+      font-size: 0.78rem;
+      color: rgba(247, 241, 237, 0.7);
+    }
+
+    .cad-blueprint-stage {
+      background: #101408;
+      border: 1px solid rgba(169, 135, 82, 0.5);
+      padding: 2.25rem;
+      position: relative;
+      background-image:
+        linear-gradient(to right, rgba(169, 135, 82, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(169, 135, 82, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .cad-svg-viewport {
+      width: 100%;
+      height: 310px;
+      display: block;
+    }
+    .cad-svg-viewport path, .cad-svg-viewport line, .cad-svg-viewport rect, .cad-svg-viewport circle {
+      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .stroke-draw {
+      stroke-dasharray: 900;
+      stroke-dashoffset: 0;
+      animation: drawCadLine 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    @keyframes drawCadLine {
+      from { stroke-dashoffset: 900; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* Interactive X-Ray Slider: CAD Elevation vs Completed Room */
+    .xray-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 5.5rem 4vw;
+    }
+    .xray-grid {
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .xray-viewport {
+      position: relative;
+      height: 480px;
+      border: 1px solid var(--olive-deep);
+      overflow: hidden;
+      background: var(--olive-deep);
+      user-select: none;
+    }
+    .xray-base-img, .xray-cad-overlay img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+    }
+    .xray-cad-overlay {
+      position: absolute;
+      inset: 0;
+      clip-path: inset(0 50% 0 0);
+      background: #15190A;
+    }
+    .xray-divider-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: var(--brass-antique);
+      z-index: 10;
+      pointer-events: none;
+    }
+    .xray-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--olive-deep);
+      border: 2px solid var(--brass-antique);
+      color: var(--ivory-warm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+    .xray-range-input {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: ew-resize;
+      z-index: 20;
+      margin: 0;
+    }
+
+    /* 6-Stage Process & 50/40/10 Payment Milestone Matrix (From Proposal Pack Pages 5 & 8) */
+    .process-matrix-section {
+      background: var(--ivory-warm);
+      border-top: 1px solid var(--stone-border);
+      border-bottom: 1px solid var(--stone-border);
+      padding: 5.5rem 4vw;
+    }
+    .six-stage-grid {
+      max-width: 1400px;
+      margin: 2.5rem auto 3.5rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .stage-card {
+      background: var(--stone-pale);
+      border: 1px solid var(--stone-border);
+      padding: 2rem;
+      position: relative;
+      transition: border-color 0.3s ease;
+    }
+    .stage-card:hover {
+      border-color: var(--brass-antique);
+    }
+    .stage-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--olive-deep);
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      color: var(--olive-deep);
+    }
+    .stage-milestone-tag {
+      float: right;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--olive-deep);
+      color: var(--brass-light);
+      padding: 4px 9px;
+    }
+
+    /* Professional Partner Specification Bar (Architects / Designers / Contractors) */
+    .trade-partner-box {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: var(--olive-deep);
+      color: var(--ivory-warm);
+      padding: 3rem;
+      border: 1px solid var(--brass-antique);
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 980px) {
+      body { padding-left: 0; }
+      .scribe-margin-ruler, .atelier-nav { display: none; }
+      .atelier-hero, .profile-selector-grid, .xray-grid, .six-stage-grid, .trade-partner-box {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Live Scroll-Linked Laser Plumb & Architectural Millimetre Ruler -->
+  <aside class="scribe-margin-ruler" aria-hidden="true">
+    <span>0mm</span>
+    <div class="ruler-ticks"></div>
+    <div class="laser-plumb-marker"></div>
+    <div class="vertical-datum-text" data-datum-readout>DATUM +0mm · PLUMB 0.0°</div>
+    <span>2400mm</span>
+  </aside>
+
+  <!-- Sticky Architectural Atelier Header -->
+  <header class="atelier-header">
+    <a href="#" class="atelier-brand">
+      GROUSE &amp; COMPANY
+      <span>DESIGN-LED INTERIOR JOINERY · OXFORDSHIRE</span>
+    </a>
+    <nav class="atelier-nav">
+      <a href="#laser-hero">Resolve Before Build</a>
+      <a href="#woodwork-geometry">Joinery Geometry</a>
+      <a href="#cad-xray">Survey vs. Fit</a>
+      <a href="#six-stages">6-Stage Programme</a>
+      <a href="#trade-partners">For Architects &amp; Designers</a>
+    </nav>
+    <a href="design-1-heritage-estate.html#start-project" class="spec-cta">Submit Drawings / Brief →</a>
+  </header>
+
+  <!-- Hero: Technical Precision & Live Laser Guide Motion Viewport -->
+  <section class="atelier-hero" id="laser-hero">
+    <div class="atelier-hero-left">
+      <span class="reg-mark tl">DWG REF // GC-OXF-2026</span>
+      <span class="reg-mark tr">TOLERANCE ±0.5mm</span>
+
+      <div>
+        <span class="eyebrow" style="margin-top:0.75rem;">Clear Thinking Before Careful Making</span>
+        <h1><em>British</em> joinery resolved on the drawing board before a board is cut.</h1>
+        <p style="color:var(--muted-ink); font-size:0.94rem;">
+          Period homes bring out-of-square rooms, uneven lime plaster, sloping floors and delicate historic cornices. We combine laser site surveys, <strong>Microvellum CAD production packs</strong> and our shared specialist facility at <strong>The Workshop</strong> so installation is calm, predictable and exact.
+        </p>
+
+        <div class="cad-callout-grid">
+          <div class="cad-callout-item">
+            <strong>01 · Simplify the Choices</strong>
+            <span>Curated Grouse Standards &amp; physical sample sign-off</span>
+          </div>
+          <div class="cad-callout-item">
+            <strong>02 · Respect the Home</strong>
+            <span>Scribed to original skirting, dado &amp; cornice lines</span>
+          </div>
+          <div class="cad-callout-item">
+            <strong>03 · Resolve Before Build</strong>
+            <span>Full CAD elevations, service routes &amp; tolerances</span>
+          </div>
+          <div class="cad-callout-item">
+            <strong>04 · Considered Delivery</strong>
+            <span>Site protection, pre-assembly QC &amp; clean handover</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; align-items:center;">
+        <a href="#six-stages" class="btn-primary">View Our 6-Stage Process →</a>
+        <a href="#woodwork-geometry" class="btn-secondary">Inspect Joinery Details</a>
+      </div>
+    </div>
+
+    <!-- Right Column: Live Interactive Laser Datum & Workshop Motion Canvas -->
+    <div class="workshop-cinema-frame" style="display:flex; flex-direction:column; justify-content:space-between;">
+      <div style="height:470px; position:relative; flex-grow:1;">
+        <canvas id="atelierLaserCanvas" data-workshop-canvas="laser"></canvas>
+      </div>
+      <div class="workshop-reel-controls">
+        <div class="workshop-reel-btns">
+          <button class="reel-btn active" data-workshop-target="atelierLaserCanvas" data-workshop-scene="laser">
+            01 · Laser Plumb &amp; Scribe Survey
+          </button>
+          <button class="reel-btn" data-workshop-target="atelierLaserCanvas" data-workshop-scene="varnish">
+            02 · Hardwax Oil on Oak
+          </button>
+          <button class="reel-btn" data-workshop-target="atelierLaserCanvas" data-workshop-scene="sawdust">
+            03 · Dovetail Cut &amp; Sawdust
+          </button>
+        </div>
+        <span class="reel-spec-note">Move cursor to calibrate laser datum</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Woodwork Geometry & Moulding Profile Explorer -->
+  <section class="geometry-workbench" id="woodwork-geometry">
+    <div class="workbench-inner">
+      <div class="section-header" style="margin-bottom:1.5rem;">
+        <div>
+          <span class="eyebrow">Interactive Woodwork Geometry · Technical Depth</span>
+          <h2 style="color:var(--ivory-warm);">The anatomy of joinery that belongs.</h2>
+        </div>
+        <p style="color:rgba(247,241,237,0.75);">
+          Select a detail below to inspect how Grouse resolves proportions, shadow gaps, solid timber movement and uneven heritage walls.
+        </p>
+      </div>
+
+      <div class="profile-selector-grid">
+        <div class="profile-btns" id="profileSelector">
+          <button class="profile-btn active" data-profile="cockbead">
+            <span class="code">DETAIL 01 // IN-FRAME CABINETRY</span>
+            <span class="name">Cockbeaded Face Frame &amp; Butt Hinge</span>
+            <span class="sub">2.5mm consistent shadow gap · Solid tulipwood or oak frame · Solid brass mortised butt hinge.</span>
+          </button>
+          <button class="profile-btn" data-profile="scribe">
+            <span class="code">DETAIL 02 // INSTALLATION-LED DESIGN</span>
+            <span class="name">Out-of-Square Lime Wall Scribe Stile</span>
+            <span class="sub">Extended 45mm scribe allowance planed on site to match undulating period masonry without caulk gaps.</span>
+          </button>
+          <button class="profile-btn" data-profile="dovetail">
+            <span class="code">DETAIL 03 // INTERNAL CRAFTSMANSHIP</span>
+            <span class="name">Solid English Oak Through-Dovetail Box</span>
+            <span class="sub">14° traditional hardwood dovetail pitch · Concealed soft-close runners · Rebeated cedar or oak base.</span>
+          </button>
+          <button class="profile-btn" data-profile="ovolo">
+            <span class="code">DETAIL 04 // PERIOD INTELLIGENCE</span>
+            <span class="name">Georgian Ovolo &amp; Raised Fielded Panel</span>
+            <span class="sub">Quarter-round ovolo moulding with quirk and floating raised panel allowing seasonal timber movement.</span>
+          </button>
+        </div>
+
+        <div class="cad-blueprint-stage">
+          <div style="display:flex; justify-content:space-between; font-family:monospace; font-size:0.72rem; color:var(--brass-antique); margin-bottom:1rem;">
+            <span id="cadDrawingTitle">SECTION A-A // IN-FRAME COCKBEAD DOOR JUNCTION (SCALE 1:2)</span>
+            <span>MICROVELLUM CAD SPEC · APPROVED FOR PRODUCTION</span>
+          </div>
+
+          <!-- Dynamic SVG Architectural Woodwork Cross-Section -->
+          <svg id="cadVectorStage" class="cad-svg-viewport" viewBox="0 0 680 300" fill="none">
+            <!-- Grid reference lines -->
+            <line x1="40" y1="150" x2="640" y2="150" stroke="rgba(169,135,82,0.2)" stroke-dasharray="4 4" />
+            <line x1="340" y1="20" x2="340" y2="280" stroke="rgba(169,135,82,0.2)" stroke-dasharray="4 4" />
+
+            <!-- Default: Cockbead In-Frame Detail -->
+            <g id="svgGroupContent" class="stroke-draw">
+              <!-- Face Frame Stile -->
+              <rect x="90" y="60" width="160" height="180" fill="rgba(169,135,82,0.12)" stroke="#F7F1ED" stroke-width="2" />
+              <!-- Semicircular Cockbead Moulding -->
+              <path d="M250 60 H268 A14 14 0 0 1 282 74 V226 A14 14 0 0 1 268 240 H250 Z" fill="rgba(169,135,82,0.32)" stroke="#A98752" stroke-width="2" />
+              <!-- 2.5mm Shadow Gap Callout -->
+              <line x1="282" y1="40" x2="282" y2="265" stroke="#D94E34" stroke-width="1.2" />
+              <line x1="302" y1="40" x2="302" y2="265" stroke="#D94E34" stroke-width="1.2" />
+              <text x="292" y="32" fill="#D94E34" font-family="monospace" font-size="11" text-anchor="middle">2.5mm SHADOW GAP</text>
+              <!-- Inset Door Stile & Fielded Panel -->
+              <rect x="302" y="68" width="270" height="164" fill="rgba(247,241,237,0.06)" stroke="#F7F1ED" stroke-width="2" />
+              <path d="M350 96 H520 L545 118 V182 L520 204 H350 Z" fill="rgba(169,135,82,0.15)" stroke="#A98752" stroke-width="1.5" />
+              <!-- Dimension labels -->
+              <text x="170" y="155" fill="#F7F1ED" font-family="monospace" font-size="12" text-anchor="middle">FRAME STILE (44mm)</text>
+              <text x="435" y="155" fill="#F7F1ED" font-family="monospace" font-size="12" text-anchor="middle">IN-FRAME DOOR (28mm)</text>
+              <text x="266" y="278" fill="#A98752" font-family="monospace" font-size="11" text-anchor="middle">6mm PROTRUDING COCKBEAD</text>
+            </g>
+          </svg>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; padding-top:1rem; border-top:1px solid rgba(169,135,82,0.25); font-size:0.8rem; color:rgba(247,241,237,0.8);">
+            <span id="cadFooterNote">Why it matters: Cockbeading frames the door with a crisp shadow line and protects painted edges from daily knocks.</span>
+            <span style="color:var(--brass-antique);">Grouse Standard Ref: GS-CB-01</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive CAD-to-Craft X-Ray Comparison Slider -->
+  <section class="xray-section" id="cad-xray">
+    <div class="xray-grid">
+      <div class="xray-viewport mitre-frame" data-xray-slider>
+        <!-- Right / Underlying Layer: Finished Period Room Joinery -->
+        <img class="xray-base-img" src="assets/period-drawing-room-hero.jpg" alt="Finished Georgian drawing room panelling and alcove joinery" />
+
+        <!-- Left / Clipped Layer: Architectural Cornice & Panel Survey Sketch -->
+        <div class="xray-cad-overlay" data-xray-overlay>
+          <img src="assets/cad-cornice-sketch.jpg" alt="Architectural cornice, sash window proportion and wall panelling elevation drawing" />
+        </div>
+
+        <div class="xray-divider-line" data-xray-divider>
+          <div class="xray-handle">↔</div>
+        </div>
+        <input type="range" class="xray-range-input" min="5" max="95" value="48" aria-label="Drag to compare architectural survey drawing with completed joinery" />
+        <span class="concept-tag">Drag Slider: Architectural Survey ↔ Finished Room</span>
+      </div>
+
+      <div>
+        <span class="eyebrow">Read the House Before Changing It</span>
+        <h2 style="font-size:2.2rem; margin-bottom:1rem;">From architectural survey to settled room.</h2>
+        <p style="color:var(--muted-ink); font-size:0.94rem;">
+          Drag the caliper slider across the viewport to see how we read a room’s original cornice, sash window proportions and dado heights before specifying new joinery.
+        </p>
+        <p style="color:var(--muted-ink); font-size:0.94rem;">
+          Before manufacture begins, we confirm dimensions, hardware, construction details, finishes, tolerances, service routes, delivery access and responsibilities for adjacent trades—giving both homeowners and project teams complete confidence.
+        </p>
+        <div style="margin-top:1.75rem; padding:1.25rem; background:var(--ivory-warm); border-left:3px solid var(--brass-antique); font-size:0.85rem;">
+          <strong style="color:var(--olive-deep); display:block; margin-bottom:4px;">Case Study Proof Point:</strong>
+          Every Grouse commission includes signed-off CAD elevations and physical finish boards so there are zero surprises on installation day.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6-Stage Process & 50% / 40% / 10% Milestone Structure (From Proposal Pack Pages 5 & 8) -->
+  <section class="process-matrix-section" id="six-stages">
+    <div style="max-width:1400px; margin:0 auto;">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Clear Project Control · Defined Sequence</span>
+          <h2>A clear route from approval to installation.</h2>
+        </div>
+        <p>
+          Each stage is completed and signed off before the next begins, linking design approvals, workshop production and staged payments (`50% / 40% / 10%`) to clear milestones.
+        </p>
+      </div>
+
+      <div class="six-stage-grid">
+        <div class="stage-card">
+          <span class="stage-milestone-tag">Stage 1 Payment · 50%</span>
+          <span class="stage-badge">1</span>
+          <h3>Agreement &amp; Deposit</h3>
+          <p style="font-size:0.85rem; color:var(--muted-ink); margin:0;">
+            Once your proposal scope is approved and the deposit is received, your project is scheduled into our programme and moves into technical survey.
+          </p>
+        </div>
+
+        <div class="stage-card">
+          <span class="stage-badge">2</span>
+          <h3>Technical Site Measure</h3>
+          <p style="font-size:0.85rem; color:var(--muted-ink); margin:0;">
+            Final laser dimensions are taken on site, confirming out-of-square wall tolerances, ceiling levels, skirting junctions, service routes and delivery access.
+          </p>
+        </div>
+
+        <div class="stage-card">
+          <span class="stage-badge">3</span>
+          <h3>Design &amp; Specification Sign-Off</h3>
+          <p style="font-size:0.85rem; color:var(--muted-ink); margin:0;">
+            Timber species, paint colours, Armac Martin brass hardware, internal accessories and moulding profiles are finalised with physical sample boards.
+          </p>
+        </div>
+
+        <div class="stage-card">
+          <span class="stage-badge">4</span>
+          <h3>CAD Drawings &amp; Production Pack</h3>
+          <p style="font-size:0.85rem; color:var(--muted-ink); margin:0;">
+            Detailed technical drawings and production information are prepared for client or architect sign-off before anything is released to the workshop floor.
+          </p>
+        </div>
+
+        <div class="stage-card">
+          <span class="stage-milestone-tag">Stage 2 Payment · 40%</span>
+          <span class="stage-badge">5</span>
+          <h3>Production, Assembly &amp; QC</h3>
+          <p style="font-size:0.85rem; color:var(--muted-ink); margin:0;">
+            Joinery is crafted at The Workshop, quality-checked, spray-finished or hand-oiled, and where needed pre-assembled and test-fitted prior to dispatch.
+          </p>
+        </div>
+
+        <div class="stage-card">
+          <span class="stage-milestone-tag">Final Balance · 10%</span>
+          <span class="stage-badge">6</span>
+          <h3>Installation, Handover &amp; Aftercare</h3>
+          <p style="font-size:0.85rem; color:var(--muted-ink); margin:0;">
+            Installed with full floor and room protection, final hinge adjustments, snag closure, and our wax-sealed Care Booklet &amp; Finish Schedule.
+          </p>
+        </div>
+      </div>
+
+      <!-- Dedicated Professional Clients Block (Architects, Interior Designers, Builders) -->
+      <div class="trade-partner-box" id="trade-partners">
+        <div>
+          <span class="eyebrow">For Interior Designers, Architects &amp; Main Contractors</span>
+          <h3 style="font-size:1.85rem; color:var(--ivory-warm); margin-bottom:0.75rem;">A collaborative joinery partner who respects your programme and creative direction.</h3>
+          <p style="font-size:0.9rem; color:rgba(247,241,237,0.8); margin-bottom:0;">
+            Professional commissions are a core pillar of Grouse &amp; Company. Whether developing buildable joinery details from your concept elevations, coordinating sample boards for client sign-off, or delivering a defined joinery package to an agreed site programme, we provide one accountable lead from tender to handover.
+          </p>
+        </div>
+        <div style="background:rgba(247,241,237,0.06); padding:2rem; border:1px solid rgba(169,135,82,0.35);">
+          <div style="font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--brass-antique); margin-bottom:0.75rem;">
+            Trade &amp; Practice Deliverables
+          </div>
+          <ul style="margin:0 0 1.5rem; padding-left:1.2rem; font-size:0.84rem; color:var(--ivory-warm); display:flex; flex-direction:column; gap:0.45rem;">
+            <li>Microvellum &amp; DWG CAD coordination with design teams</li>
+            <li>Clear interfaces with M&amp;E, stone, glazing &amp; decorating trades</li>
+            <li>Labelled sample boxes sent directly to your studio</li>
+            <li>RAMs, site readiness checks &amp; 12-month workmanship warranty</li>
+          </ul>
+          <a href="design-1-heritage-estate.html#start-project" class="spec-cta" style="display:inline-block; background:var(--brass-antique); color:var(--olive-deep); font-weight:500;">
+            Send Tender / Drawings to Adam →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Design Switcher Dock -->
+  <nav class="grouse-design-dock" aria-label="Design Prototype Switcher">
+    <span class="dock-label">Grouse &amp; Co Review</span>
+    <a href="index.html">★ Overview &amp; Video Studio</a>
+    <a href="design-1-heritage-estate.html">01 · Country House Estate</a>
+    <a href="design-2-architectural-atelier.html" class="active">02 · Resolve Before Build (CAD)</a>
+    <a href="design-3-british-interior-editorial.html">03 · The British Interior</a>
+    <a href="design-4-nocturne-craft.html">04 · Olive &amp; Brass Nocturne</a>
+  </nav>
+
+  <script src="assets/grouse-motion.js"></script>
+  <script>
+    // Interactive Woodwork Geometry SVG Cross-Section Switcher
+    const profileData = {
+      cockbead: {
+        title: 'SECTION A-A // IN-FRAME COCKBEAD DOOR JUNCTION (SCALE 1:2)',
+        note: 'Why it matters: Cockbeading frames the door with a crisp shadow line and protects painted edges from daily knocks.',
+        svg: `
+          <rect x="90" y="60" width="160" height="180" fill="rgba(169,135,82,0.12)" stroke="#F7F1ED" stroke-width="2" />
+          <path d="M250 60 H268 A14 14 0 0 1 282 74 V226 A14 14 0 0 1 268 240 H250 Z" fill="rgba(169,135,82,0.32)" stroke="#A98752" stroke-width="2" />
+          <line x1="282" y1="40" x2="282" y2="265" stroke="#D94E34" stroke-width="1.2" />
+          <line x1="302" y1="40" x2="302" y2="265" stroke="#D94E34" stroke-width="1.2" />
+          <text x="292" y="32" fill="#D94E34" font-family="monospace" font-size="11" text-anchor="middle">2.5mm SHADOW GAP</text>
+          <rect x="302" y="68" width="270" height="164" fill="rgba(247,241,237,0.06)" stroke="#F7F1ED" stroke-width="2" />
+          <path d="M350 96 H520 L545 118 V182 L520 204 H350 Z" fill="rgba(169,135,82,0.15)" stroke="#A98752" stroke-width="1.5" />
+          <text x="170" y="155" fill="#F7F1ED" font-family="monospace" font-size="12" text-anchor="middle">FRAME STILE (44mm)</text>
+          <text x="435" y="155" fill="#F7F1ED" font-family="monospace" font-size="12" text-anchor="middle">IN-FRAME DOOR (28mm)</text>
+          <text x="266" y="278" fill="#A98752" font-family="monospace" font-size="11" text-anchor="middle">6mm PROTRUDING COCKBEAD</text>
+        `
+      },
+      scribe: {
+        title: 'SECTION B-B // OUT-OF-SQUARE HISTORIC LIME WALL SCRIBE (SCALE 1:2)',
+        note: 'Why it matters: Older masonry is never plumb. A hand-planed scribe stile hugs the wall contour cleanly without unsightly silicone fillers.',
+        svg: `
+          <path d="M80 25 Q115 95 92 165 T118 275 L60 275 L60 25 Z" fill="rgba(247,241,237,0.12)" stroke="#A98752" stroke-width="2" />
+          <text x="155" y="45" fill="#A98752" font-family="monospace" font-size="11">UNDULATING HISTORIC LIME PLASTER</text>
+          <line x1="125" y1="20" x2="125" y2="280" stroke="#D94E34" stroke-width="1.5" stroke-dasharray="5 3" />
+          <text x="195" y="270" fill="#D94E34" font-family="monospace" font-size="11">LASER PLUMB DATUM (+4.8mm)</text>
+          <path d="M98 40 Q125 100 102 165 T122 255 L290 255 L290 40 Z" fill="rgba(169,135,82,0.22)" stroke="#F7F1ED" stroke-width="2" />
+          <rect x="290" y="55" width="280" height="185" fill="rgba(247,241,237,0.06)" stroke="#F7F1ED" stroke-width="2" />
+          <text x="200" y="150" fill="#F7F1ED" font-family="monospace" font-size="12" text-anchor="middle">SCRIBED STILE</text>
+          <text x="430" y="150" fill="#F7F1ED" font-family="monospace" font-size="12" text-anchor="middle">LEVEL CABINET CARCASS</text>
+        `
+      },
+      dovetail: {
+        title: 'ELEVATION C-C // SOLID OAK THROUGH-DOVETAIL DRAWER JOINT (14° PITCH)',
+        note: 'Why it matters: Mechanical interlocking grain strength ensures drawers glide smoothly for decades without racking.',
+        svg: `
+          <path d="M120 50 H320 L355 75 L320 100 V130 L355 155 L320 180 V210 L355 235 L320 255 H120 Z" fill="rgba(169,135,82,0.22)" stroke="#F7F1ED" stroke-width="2" />
+          <path d="M365 50 H560 V255 H365 L330 235 L365 210 V180 L330 155 L365 130 V100 L330 75 Z" fill="rgba(247,241,237,0.08)" stroke="#A98752" stroke-width="2" />
+          <text x="220" y="155" fill="#F7F1ED" font-family="monospace" font-size="12" text-anchor="middle">QUARTERSAWN OAK TAILS</text>
+          <text x="465" y="155" fill="#A98752" font-family="monospace" font-size="12" text-anchor="middle">END-GRAIN PINS (14° RATIO 1:7)</text>
+        `
+      },
+      ovolo: {
+        title: 'SECTION D-D // GEORGIAN OVOLO MOULDING & RAISED FIELDED PANEL',
+        note: 'Why it matters: A floating fielded panel expands and contracts cleanly with winter heating without splitting the paint line.',
+        svg: `
+          <path d="M90 55 H240 V115 Q240 155 280 155 H295 V235 H90 Z" fill="rgba(247,241,237,0.08)" stroke="#F7F1ED" stroke-width="2" />
+          <path d="M265 125 L345 90 H580 V215 H345 L265 180 Z" fill="rgba(169,135,82,0.26)" stroke="#A98752" stroke-width="2" />
+          <circle cx="255" cy="155" r="8" stroke="#D94E34" stroke-width="1.5" />
+          <text x="255" y="268" fill="#D94E34" font-family="monospace" font-size="11" text-anchor="middle">EXPANSION ALLOWANCE GAP (3mm)</text>
+          <text x="165" y="195" fill="#F7F1ED" font-family="monospace" font-size="12" text-anchor="middle">OVOLO STILE</text>
+          <text x="455" y="155" fill="#F7F1ED" font-family="monospace" font-size="12" text-anchor="middle">RAISED FIELDED PANEL</text>
+        `
+      }
+    };
+
+    document.querySelectorAll('#profileSelector .profile-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#profileSelector .profile-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        const key = btn.dataset.profile;
+        const item = profileData[key];
+        if (item) {
+          document.getElementById('cadDrawingTitle').textContent = item.title;
+          document.getElementById('cadFooterNote').textContent = item.note;
+          const group = document.getElementById('svgGroupContent');
+          group.classList.remove('stroke-draw');
+          group.innerHTML = item.svg;
+          void group.offsetWidth; // trigger reflow for animation
+          group.classList.add('stroke-draw');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
