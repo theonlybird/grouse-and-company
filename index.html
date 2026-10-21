@@ -1,521 +1,96 @@
-<!DOCTYPE html>
-<html lang="en-GB">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grouse &amp; Company | Website Design Presentation &amp; Workshop Motion Studio</title>
-  <link rel="stylesheet" href="assets/grouse-shared.css" />
-  <style>
-    /* ==========================================================================
-       MASTER PRESENTATION HUB & WORKSHOP MOTION STUDIO (index.html)
-       Built for Adam Toms & Family Review
-       ========================================================================== */
-
-    .hub-hero {
-      background: var(--olive-deep);
-      color: var(--ivory-warm);
-      padding: 4.5rem 4vw 4rem;
-      border-bottom: 2px solid var(--brass-antique);
-      text-align: center;
-    }
-    .hub-hero-inner {
-      max-width: 960px;
-      margin: 0 auto;
-    }
-    .hub-logo {
-      font-family: var(--font-brand);
-      font-size: clamp(2.1rem, 4vw, 3.2rem);
-      letter-spacing: 0.18em;
-      margin-bottom: 0.2rem;
-    }
-    .hub-sub {
-      font-size: 0.72rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--brass-antique);
-      margin-bottom: 1.75rem;
-    }
-    .hub-hero h1 {
-      font-size: clamp(1.65rem, 2.6vw, 2.35rem);
-      color: var(--ivory-warm);
-      margin-bottom: 1rem;
-    }
-    .hub-hero p {
-      color: rgba(247, 241, 237, 0.8);
-      font-size: 0.96rem;
-      max-width: 760px;
-      margin: 0 auto 2rem;
-    }
-
-    .hub-section {
-      max-width: 1420px;
-      margin: 0 auto;
-      padding: 4.5rem 4vw;
-    }
-
-    /* 4 Designs Comparison Grid */
-    .designs-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2.5rem;
-      margin-top: 2.5rem;
-    }
-    .design-card {
-      background: var(--stone-pale);
-      border: 1px solid var(--stone-border);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-    }
-    .design-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--brass-antique);
-      box-shadow: 0 20px 44px rgba(21, 25, 10, 0.12);
-    }
-    .design-preview-thumb {
-      position: relative;
-      height: 290px;
-      overflow: hidden;
-      border-bottom: 1px solid var(--stone-border);
-      background: var(--olive-deep);
-    }
-    .design-preview-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s ease;
-    }
-    .design-card:hover .design-preview-thumb img {
-      transform: scale(1.03);
-    }
-    .design-badge {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      background: var(--olive-deep);
-      color: var(--brass-light);
-      border: 1px solid var(--brass-antique);
-      padding: 5px 12px;
-      font-size: 0.68rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-    .design-body {
-      padding: 2rem;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .design-body h3 {
-      font-size: 1.5rem;
-      color: var(--olive-deep);
-      margin-bottom: 0.5rem;
-    }
-    .design-feature-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 1rem 0 1.25rem;
-    }
-    .design-feature-tags span {
-      background: var(--ivory-warm);
-      border: 1px solid var(--stone-border);
-      padding: 4px 9px;
-      font-size: 0.7rem;
-      color: var(--olive-deep);
-    }
-    .design-geometry-note {
-      background: rgba(169, 135, 82, 0.12);
-      border-left: 2px solid var(--brass-antique);
-      padding: 0.75rem 1rem;
-      font-size: 0.79rem;
-      margin-bottom: 1.5rem;
-      color: var(--charcoal-ink);
-    }
-
-    /* Workshop Motion Selection Studio (3 Interactive Canvases Side-by-Side) */
-    .motion-studio-band {
-      background: var(--olive-deep);
-      color: var(--ivory-warm);
-      padding: 5rem 4vw;
-      border-top: 1px solid rgba(169, 135, 82, 0.4);
-      border-bottom: 1px solid rgba(169, 135, 82, 0.4);
-    }
-    .motion-trio-grid {
-      max-width: 1420px;
-      margin: 2.5rem auto 0;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-    }
-    .motion-studio-card {
-      background: rgba(247, 241, 237, 0.04);
-      border: 1px solid rgba(169, 135, 82, 0.4);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .motion-canvas-box {
-      height: 280px;
-      position: relative;
-      border-bottom: 1px solid rgba(169, 135, 82, 0.3);
-    }
-    .motion-canvas-box canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-      cursor: crosshair;
-    }
-    .motion-card-body {
-      padding: 1.5rem;
-    }
-    .motion-card-body h3 {
-      color: var(--ivory-warm);
-      font-size: 1.22rem;
-      margin-bottom: 0.4rem;
-    }
-    .motion-card-body p {
-      font-size: 0.82rem;
-      color: rgba(247, 241, 237, 0.76);
-      margin-bottom: 1rem;
-    }
-    .shot-spec {
-      font-size: 0.72rem;
-      color: var(--brass-light);
-      border-top: 1px solid rgba(169, 135, 82, 0.25);
-      padding-top: 0.75rem;
-    }
-
-    /* Interactive Mix-and-Match Feedback Builder for Adam */
-    .feedback-builder {
-      background: var(--stone-pale);
-      border: 1px solid var(--stone-border);
-      padding: 3rem;
-      margin-top: 1rem;
-    }
-    .checkbox-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-    .check-item {
-      background: var(--ivory-warm);
-      border: 1px solid var(--stone-border);
-      padding: 1rem 1.25rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      cursor: pointer;
-      font-size: 0.85rem;
-    }
-    .check-item input {
-      margin-top: 4px;
-      accent-color: var(--olive-deep);
-      transform: scale(1.2);
-    }
-
-    @media (max-width: 980px) {
-      .designs-grid, .motion-trio-grid, .checkbox-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grouse Website Directions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@0;1&family=Poppins:wght@300;400;500&display=swap">
+<style>
+/* Cover sheet, round two: two merged directions, each a homepage plus its British Interior page. */
+:root{
+  --olive:#15190A; --ivory:#F7F1ED; --stone:#EDE7E2; --brass:#A98752; --brass-ink:#7A5E30; --ink:#1D2014; --muted:#5B584C; --rule:#D3CABE;
+  --display:"Libre Baskerville", Baskerville, Georgia, serif; --body:"Poppins","Helvetica Neue",Arial,sans-serif; --mark:Georgia,"Times New Roman",serif;
+}
+body{background:var(--ivory);color:var(--ink);font:300 15px/1.7 var(--body);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.in{max-width:1180px;margin:0 auto;padding-left:max(20px, env(safe-area-inset-left,0px));padding-right:max(20px, env(safe-area-inset-right,0px))}
+.top{background:var(--olive);color:var(--ivory)}
+.top .in{padding-block:60px 52px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:end}
+.wm .a{font:400 clamp(44px,7vw,84px)/1 var(--mark);letter-spacing:.14em}
+.wm .b{font:400 clamp(15px,2vw,24px)/1 var(--mark);letter-spacing:.24em;margin-top:12px}
+.wm .r{width:180px;height:1px;background:var(--brass);margin:22px 0 14px}
+.wm .c{font:500 11px/1 var(--body);letter-spacing:.38em;color:var(--brass);text-transform:uppercase}
+.top h1{font:400 clamp(24px,2.6vw,32px)/1.3 var(--display);margin:0 0 14px}
+.top p{margin:0 0 10px;color:#D6CFC2;max-width:34em}
+@media (max-width:800px){.top .in{grid-template-columns:1fr}}
+.dirs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;padding-block:52px 20px}
+.dir{border:1px solid var(--rule);background:#fff6;display:flex;flex-direction:column}
+.dir .pic{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--olive)}
+.dir .pic img{width:100%;height:100%;object-fit:cover;display:block;max-width:100%}
+.dir .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,13,6,.55),rgba(12,13,6,0) 30%)}
+.dir .no{z-index:1;position:absolute;left:18px;top:14px;font:400 15px/1 var(--display);color:var(--ivory);letter-spacing:.06em;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.dir .body{padding:24px 26px 28px;display:grid;gap:12px}
+.dir h2{font:400 30px/1.15 var(--display);margin:0}
+.dir p{margin:0;color:var(--muted)}
+.dir dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:4px 0 0;font-size:13.5px}
+.dir dt{font:500 10px/2 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--brass-ink)}
+.dir dd{margin:0}
+.opens{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.opens a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;font-size:13px;text-decoration:none;border:1px solid var(--olive)}
+.opens a.p{background:var(--olive);color:var(--ivory)}
+.opens a:hover{background:var(--brass);border-color:var(--brass);color:var(--olive)}
+@media (max-width:800px){.dirs{grid-template-columns:1fr}}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px;padding-block:40px 32px;border-top:1px solid var(--rule)}
+.cols h3{font:400 20px/1.3 var(--display);margin:0 0 10px}
+.cols ul,.cols ol{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14px}
+@media (max-width:860px){.cols{grid-template-columns:1fr}}
+.r1{border-top:1px solid var(--rule);padding-block:24px 56px;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 22px}
+.r1 a{color:var(--ink)}
+</style>
 </head>
-<body>
+<body style="margin:0">
 
-  <!-- Presentation Header -->
-  <header class="hub-hero">
-    <div class="hub-hero-inner">
-      <div class="hub-logo">GROUSE &amp; COMPANY</div>
-      <div class="hub-sub">British Joinery &amp; Interiors · Website Design Review Suite</div>
-      <h1>Four Distinct Website Directions &amp; Workshop Motion Selection</h1>
-      <p>
-        Prepared from Adam’s Website Builder Brief, Proposal Pack (East Manor Farm) and Brand Boards. Every design honours the Grouse palette (<code>#15190A</code> Deep Olive, <code>#F7F1ED</code> Warm Ivory, <code>#EDE7E2</code> Pale Stone, <code>#A98752</code> Antique Brass), typography (<em>Georgia</em>, <em>Libre Baskerville Regular</em> with italicised <em>British</em>, and <em>Poppins</em>), and includes bespoke woodwork geometry animations.
-      </p>
-      <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
-        <a href="#four-designs" class="btn-primary" style="background:var(--brass-antique); color:var(--olive-deep); border-color:var(--brass-antique); font-weight:500;">Explore the 4 Website Designs ↓</a>
-        <a href="#motion-selection" class="btn-primary" style="background:transparent; border-color:rgba(247,241,237,0.4);">Preview the 3 Workshop Motion Videos ↓</a>
-      </div>
+<div class="top"><div class="in">
+  <div class="wm"><div class="a">GROUSE</div><div class="b">&amp; COMPANY</div><div class="r"></div><div class="c">British joinery &amp; interiors</div></div>
+  <div>
+    <h1>Round two: two directions</h1>
+    <p>Each has a homepage and a British Interior page. Scroll slowly; most of the motion is tied to the scroll.</p>
+    <p style="font-size:13px">Room imagery is cropped from Adam's AI concept renders and labelled as such. Film frames are placeholders for footage to shoot.</p>
+  </div>
+</div></div>
+
+<div class="in dirs">
+  <div class="dir">
+    <div class="pic"><img src="img/drawing.jpg" alt=""><span class="no">Direction 1</span></div>
+    <div class="body">
+      <h2>Daylight</h2>
+      <p>Ivory pages with olive used sparingly, as the brief describes. Closest to A, with the drawings of C.</p>
+      <dl>
+        <dt>Opening</dt><dd>The film plays full screen, then contracts into a moulded panel set to Georgian proportion, with its dimensions drawn on.</dd>
+        <dt>Carried over</dt><dd>Storey rod, five things with changing images, the wardrobe drawing on a single sheet, founder photo and quote.</dd>
+        <dt>Guide page</dt><dd>Periods read top to bottom like a book; the rod counts years instead of millimetres.</dd>
+      </dl>
+      <div class="opens"><a class="p" href="daylight.html">Open homepage →</a><a href="daylight-british-interior.html">British Interior page →</a></div>
     </div>
-  </header>
-
-  <!-- Section 1: The 4 Website Designs -->
-  <section class="hub-section" id="four-designs">
-    <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1.5rem;">
-      <div>
-        <span class="eyebrow" style="color:var(--brass-antique); font-size:0.74rem; letter-spacing:0.2em; text-transform:uppercase; display:block; margin-bottom:6px;">Interactive Prototypes · Click Any Design to Launch Full Screen</span>
-        <h2 style="font-size:2.3rem; margin:0;">Four Strategic Directions for Adam to Review</h2>
-      </div>
-      <p style="max-width:480px; margin:0; color:var(--muted-ink); font-size:0.9rem;">
-        You can choose one winning direction as the foundation, or mix-and-match your favourite interactive components from across all four using the floating dock at the bottom of every screen.
-      </p>
+  </div>
+  <div class="dir">
+    <div class="pic"><img src="img/livingroom.jpg" alt=""><span class="no">Direction 2</span></div>
+    <div class="body">
+      <h2>Lamplight</h2>
+      <p>Deep olive throughout, warm light and brass. Closest to B, with the drawings of C.</p>
+      <dl>
+        <dt>Opening</dt><dd>The film's last shot is a pair of painted doors. Scroll, and they swing open slowly onto the name.</dd>
+        <dt>Carried over</dt><dd>Storey rod, five things with full-height images, the wardrobe drawn in brass, the founder note, Read the house.</dd>
+        <dt>Guide page</dt><dd>The periods slide past sideways like rooms off a corridor, with a timeline beneath.</dd>
+      </dl>
+      <div class="opens"><a class="p" href="lamplight.html">Open homepage →</a><a href="lamplight-british-interior.html">British Interior page →</a></div>
     </div>
+  </div>
+</div>
 
-    <div class="designs-grid">
-      <!-- DESIGN 01 -->
-      <article class="design-card">
-        <div>
-          <div class="design-preview-thumb">
-            <img src="assets/hero-olive-living-room.jpg" alt="Design 01 Preview" />
-            <span class="design-badge">Design 01 · Recommended Flagship</span>
-          </div>
-          <div class="design-body">
-            <div>
-              <h3>The Country House Estate</h3>
-              <p style="font-size:0.88rem; color:var(--muted-ink); margin:0;">
-                Follows the exact homepage sequence in Adam’s brief (Plain English / Humphrey Munson / English &amp; Wood inspiration). Features an optional <strong>Georgian Double-Door Landing Threshold</strong>, the <strong>Five Core Systems Interactive Selector</strong> (Wardrobes 40%, Media 20%, Alcoves 15%, Boot Rooms 15%, Panelling 10%), the <strong>East Manor Farm Case Study</strong>, Adam’s Symm &amp; Co → Grouse Mountain story, and the <strong>4-Route Enquiry Form</strong>.
-              </p>
-              <div class="design-feature-tags">
-                <span>Optional Door Landing Curtain</span>
-                <span>5 Core Systems Switcher</span>
-                <span>East Manor Farm Case Study</span>
-                <span>Homeowner + Trade Form</span>
-              </div>
-              <div class="design-geometry-note">
-                <strong>Woodwork Geometry Animation:</strong> Georgian panelled double doors part on entry; scroll-driven Mortise &amp; Dovetail joint interlock; 45° cockbead mitre frames.
-              </div>
-            </div>
-            <a href="design-1-heritage-estate.html" class="btn-primary" style="background:var(--olive-deep); color:var(--ivory-warm); text-decoration:none; padding:12px 20px; text-align:center; display:block; font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;">
-              Launch Design 01: Country House Estate →
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- DESIGN 02 -->
-      <article class="design-card">
-        <div>
-          <div class="design-preview-thumb">
-            <img src="assets/workshop-laser.png" alt="Design 02 Preview" />
-            <span class="design-badge">Design 02 · Technical &amp; Trade Authority</span>
-          </div>
-          <div class="design-body">
-            <div>
-              <h3>Resolve Before Build — The Architectural Atelier</h3>
-              <p style="font-size:0.88rem; color:var(--muted-ink); margin:0;">
-                Built around Grouse’s core promise: <em>“Clear thinking before careful making.”</em> Speaks strongly to Architects, Interior Designers, Builders and analytical Homeowners. Features an interactive <strong>CAD-to-Craft X-Ray Comparison Slider</strong>, <strong>Interactive Joinery Cross-Sections</strong> (Cockbead, Scribed Lime Wall, Dovetail, Georgian Ovolo) and the <strong>6-Stage Programme (`50% / 40% / 10%`)</strong>.
-              </p>
-              <div class="design-feature-tags">
-                <span>Live Laser Plumb Scroll Ruler</span>
-                <span>CAD-to-Room X-Ray Slider</span>
-                <span>4 Interactive SVG Profiles</span>
-                <span>50/40/10 Stage Matrix</span>
-              </div>
-              <div class="design-geometry-note">
-                <strong>Woodwork Geometry Animation:</strong> Live laser spirit-level datum tracks down a millimetre ruler as you scroll; animated SVG joinery cross-sections draw dynamically.
-              </div>
-            </div>
-            <a href="design-2-architectural-atelier.html" class="btn-primary" style="background:var(--olive-deep); color:var(--ivory-warm); text-decoration:none; padding:12px 20px; text-align:center; display:block; font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;">
-              Launch Design 02: Resolve Before Build →
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- DESIGN 03 -->
-      <article class="design-card">
-        <div>
-          <div class="design-preview-thumb">
-            <img src="assets/hero-olive-dresser.jpg" alt="Design 03 Preview" />
-            <span class="design-badge">Design 03 · Editorial &amp; Period Guide</span>
-          </div>
-          <div class="design-body">
-            <div>
-              <h3>The <em>British</em> Interior — Period Property Intelligence</h3>
-              <p style="font-size:0.88rem; color:var(--muted-ink); margin:0;">
-                Directly realises Adam’s vision to make Grouse the go-to period property intelligence resource. Features an interactive <strong>6-Era British Joinery Atlas</strong> (Georgian, Regency, Victorian, Edwardian, Arts &amp; Crafts, Country Vernacular), explaining why bespoke cabinetry commands a room compared to flat-pack units.
-              </p>
-              <div class="design-feature-tags">
-                <span>6-Era Period Joinery Atlas</span>
-                <span>Every Room Has a Story</span>
-                <span>Mouldings &amp; Cockbead Quad</span>
-                <span>Why Bespoke Over Flat-Pack</span>
-              </div>
-              <div class="design-geometry-note">
-                <strong>Woodwork Geometry Animation:</strong> Interactive wall-panelling elevation SVG that dynamically morphs its dado height, frieze and fielded panel proportions for each historical era.
-              </div>
-            </div>
-            <a href="design-3-british-interior-editorial.html" class="btn-primary" style="background:var(--olive-deep); color:var(--ivory-warm); text-decoration:none; padding:12px 20px; text-align:center; display:block; font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;">
-              Launch Design 03: The British Interior →
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- DESIGN 04 -->
-      <article class="design-card">
-        <div>
-          <div class="design-preview-thumb">
-            <img src="assets/workshop-varnish.png" alt="Design 04 Preview" />
-            <span class="design-badge">Design 04 · Atmospheric Landing &amp; Sample Board</span>
-          </div>
-          <div class="design-body">
-            <div>
-              <h3>Nocturne in Olive &amp; Brass — Tactile Workshop</h3>
-              <p style="font-size:0.88rem; color:var(--muted-ink); margin:0;">
-                A rich, dark-olive (`#15190A`) and antique brass (`#A98752`) sensory experience channeling Barbour, Loake and E.J. Churchill. Leads with a full-screen <strong>3-Reel Workshop Cinema Stage</strong>, an interactive <strong>Grouse Standards Sample Board &amp; Proposal Upgrade Configurator</strong> (`+£450` oak drawers, `+£250` sensor LEDs, wax seal stamp), and the <strong>Loake-Inspired Aftercare Booklet</strong>.
-              </p>
-              <div class="design-feature-tags">
-                <span>Full-Screen 3-Reel Cinema</span>
-                <span>Interactive Upgrade Calculator</span>
-                <span>Restrained Grouse Wax Seal</span>
-                <span>Loake-Inspired Care Booklet</span>
-              </div>
-              <div class="design-geometry-note">
-                <strong>Woodwork Geometry Animation:</strong> A traditional 90° solid brass quadrant stay hinge gauge rotates smoothly in the corner as you scroll down the page.
-              </div>
-            </div>
-            <a href="design-4-nocturne-craft.html" class="btn-primary" style="background:var(--olive-deep); color:var(--ivory-warm); text-decoration:none; padding:12px 20px; text-align:center; display:block; font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;">
-              Launch Design 04: Olive &amp; Brass Nocturne →
-            </a>
-          </div>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- Section 2: Curated Selection of 3 Workshop Motion Videos -->
-  <section class="motion-studio-band" id="motion-selection">
-    <div style="max-width:1420px; margin:0 auto;">
-      <span style="color:var(--brass-antique); font-size:0.74rem; letter-spacing:0.2em; text-transform:uppercase; display:block; margin-bottom:6px;">Cinematic Workshop Motion Selection · Live Interactive Loops</span>
-      <h2 style="font-size:2.2rem; color:var(--ivory-warm); margin-bottom:0.5rem;">Your Three Requested Workshop Motion Pieces</h2>
-      <p style="color:rgba(247,241,237,0.78); max-width:820px; font-size:0.94rem; margin:0;">
-        Below are the three bespoke workshop motion scenes created for Grouse &amp; Co—combining custom photorealistic Oxfordshire workshop stills with live 60fps HTML5 canvas physics (move your cursor over each frame or click Reel 03). They work immediately as atmospheric website loops today, and also serve as exact 16:9 drop-in slots whenever Adam films 15-second clips at The Workshop.
-      </p>
-
-      <div class="motion-trio-grid">
-        <!-- Motion 1: Varnishing Oak -->
-        <div class="motion-studio-card">
-          <div>
-            <div class="motion-canvas-box">
-              <canvas id="studioCanvasVarnish" data-workshop-canvas="varnish"></canvas>
-            </div>
-            <div class="motion-card-body">
-              <span style="color:var(--brass-antique); font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase;">Motion Selection 01 · Material Warmth</span>
-              <h3>Hardwax Oil &amp; Varnish on Quartersawn Oak</h3>
-              <p>
-                Move your cursor left and right across the timber to sweep the natural-bristle brush coat across raw planed English oak—warming up the medullary rays and satin sheen.
-              </p>
-              <div class="shot-spec">
-                <strong>Asset:</strong> <code>assets/workshop-varnish.png</code> + Live Sheen Shader<br />
-                <strong>Optional Real B-Roll Spec:</strong> 4K 60fps macro shot, side window light, wiping Osmo Polyx-Oil onto oak drawer front.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Motion 2: Laser Guide -->
-        <div class="motion-studio-card">
-          <div>
-            <div class="motion-canvas-box">
-              <canvas id="studioCanvasLaser" data-workshop-canvas="laser"></canvas>
-            </div>
-            <div class="motion-card-body">
-              <span style="color:var(--brass-antique); font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase;">Motion Selection 02 · Technical Precision</span>
-              <h3>Cinematic Laser Plumb &amp; Datum Guide</h3>
-              <p>
-                Move your cursor inside the period room to project the self-levelling optical red-amber laser crosshair across uneven Cotswold lime plaster and olive cabinetry.
-              </p>
-              <div class="shot-spec">
-                <strong>Asset:</strong> <code>assets/workshop-laser.png</code> + Live Datum Crosshair<br />
-                <strong>Optional Real B-Roll Spec:</strong> Dim morning site room, switching on line laser across alcove cornice prior to scribing.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Motion 3: Gentle Blow of Sawdust -->
-        <div class="motion-studio-card">
-          <div>
-            <div class="motion-canvas-box">
-              <canvas id="studioCanvasSawdust" data-workshop-canvas="sawdust"></canvas>
-            </div>
-            <div class="motion-card-body">
-              <span style="color:var(--brass-antique); font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase;">Motion Selection 03 · Craftsmanship</span>
-              <h3>Gentle Blow of Sawdust After the Cut</h3>
-              <p>
-                Click anywhere on the viewport to trigger a gentle breath of air across the freshly cut through-dovetail joint, sending golden oak dust swirling into the sunbeam.
-              </p>
-              <div class="shot-spec">
-                <strong>Asset:</strong> <code>assets/workshop-sawdust.png</code> + 165-Particle Physics<br />
-                <strong>Optional Real B-Roll Spec:</strong> 120fps slow-motion side-lit shot blowing fine oak dust off a hand-cut dovetail pin.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 3: Interactive Feedback Scorecard for Adam -->
-  <section class="hub-section">
-    <div class="feedback-builder">
-      <span style="color:var(--brass-antique); font-size:0.74rem; letter-spacing:0.2em; text-transform:uppercase; display:block; margin-bottom:4px;">For Adam’s Review</span>
-      <h2 style="font-size:1.95rem; margin-bottom:0.5rem;">Mix-and-Match Feature Selector</h2>
-      <p style="color:var(--muted-ink); font-size:0.9rem; margin:0;">
-        Adam can tick his favourite design foundation and interactive features below, then click <strong>Copy Feedback Summary</strong> to send his preferences back via WhatsApp or email.
-      </p>
-
-      <div class="checkbox-grid" id="adamChecklist">
-        <label class="check-item">
-          <input type="checkbox" checked value="Design 01 (Country House Estate) as the core homepage & Warm Ivory/Deep Olive balance" />
-          <span><strong>Design 01 Foundation:</strong> Warm Ivory &amp; Deep Olive Country House layout with the 5 Core Systems selector.</span>
-        </label>
-        <label class="check-item">
-          <input type="checkbox" value="Include Design 01's Georgian Double-Door Landing Threshold intro" />
-          <span><strong>Landing Page Threshold:</strong> Keep the opening Georgian panelled double-door intro curtain on first visit.</span>
-        </label>
-        <label class="check-item">
-          <input type="checkbox" checked value="Include Design 02's CAD-to-Craft X-Ray Slider & Interactive Woodwork Profile Cross-Sections" />
-          <span><strong>Design 02 Technical Proof:</strong> Include the interactive CAD-to-Room X-Ray slider and SVG joinery cross-sections.</span>
-        </label>
-        <label class="check-item">
-          <input type="checkbox" checked value="Include Design 02's 6-Stage Process & 50%/40%/10% Milestone Matrix" />
-          <span><strong>6-Stage Programme Matrix:</strong> Show the 6-stage sign-off route and 50% / 40% / 10% milestone structure from the Proposal Pack.</span>
-        </label>
-        <label class="check-item">
-          <input type="checkbox" checked value="Include Design 03's 'The British Interior' 6-Era Period Joinery Intelligence Atlas" />
-          <span><strong>Design 03 Editorial Hub:</strong> Include the interactive Georgian / Regency / Victorian / Edwardian / Arts &amp; Crafts guide.</span>
-        </label>
-        <label class="check-item">
-          <input type="checkbox" checked value="Include Design 04's Interactive Grouse Standards Sample Board & Optional Enhancements Calculator" />
-          <span><strong>Design 04 Sample Board &amp; Upgrades:</strong> Include the interactive Optional Enhancements menu (+£450 Oak Drawers, +£250 Sensor LEDs, Wax Seal).</span>
-        </label>
-      </div>
-
-      <div style="display:flex; gap:1rem; align-items:center; flex-wrap:wrap;">
-        <button type="button" onclick="copyAdamFeedback()" style="background:var(--olive-deep); color:var(--ivory-warm); border:1px solid var(--brass-antique); padding:12px 24px; font-family:var(--font-body); font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer;">
-          Copy Selected Preferences to Clipboard →
-        </button>
-        <span id="copyConfirmMsg" style="font-size:0.82rem; color:var(--oak-stained); font-weight:500;"></span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Floating Design Switcher Dock -->
-  <nav class="grouse-design-dock" aria-label="Design Prototype Switcher">
-    <span class="dock-label">Grouse &amp; Co Review</span>
-    <a href="index.html" class="active">★ Overview &amp; Video Studio</a>
-    <a href="design-1-heritage-estate.html">01 · Country House Estate</a>
-    <a href="design-2-architectural-atelier.html">02 · Resolve Before Build (CAD)</a>
-    <a href="design-3-british-interior-editorial.html">03 · The British Interior</a>
-    <a href="design-4-nocturne-craft.html">04 · Olive &amp; Brass Nocturne</a>
-  </nav>
-
-  <script src="assets/grouse-motion.js"></script>
-  <script>
-    function copyAdamFeedback() {
-      const checked = Array.from(document.querySelectorAll('#adamChecklist input:checked')).map((el) => '• ' + el.value);
-      const text = 'Grouse & Co Website Design Preferences:\n' + checked.join('\n');
-      navigator.clipboard.writeText(text).then(() => {
-        document.getElementById('copyConfirmMsg').textContent = '✓ Copied to clipboard! Ready to paste into WhatsApp or email.';
-      });
-    }
-  </script>
 </body>
 </html>

@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grouse · The British Interior (Daylight)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@0;1&family=Poppins:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="daylight.css">
+<style>
+/* The British Interior, Daylight: a guide set like a well-made book. The storey rod becomes a timeline of years. */
+.bihero{padding-block:150px 64px;text-align:center}
+.bihero blockquote{margin:28px auto 0;max-width:24em;font:400 clamp(26px,3.3vw,44px)/1.38 var(--display)}
+.bihero blockquote em{color:var(--brass-ink)}
+.bihero .cont{max-width:36em;margin:26px auto 0;font:400 italic 18px/1.6 var(--display);color:var(--muted)}
+.bihero .sig{justify-content:center;margin-top:26px}
+.widepic{position:relative;aspect-ratio:21/8;overflow:hidden;margin-top:56px}
+.widepic img{width:100%;height:100%;object-fit:cover}
+@media (max-width:760px){.bihero{padding-block:110px 40px}.widepic{aspect-ratio:4/3}}
+
+.tenets{border-top:1px solid var(--rule)}
+.tenet{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,5fr) minmax(0,3fr);gap:40px;padding-block:34px;border-bottom:1px solid var(--rule);align-items:start}
+.tenet h3{font-size:clamp(24px,2.4vw,32px);line-height:1.15}
+.tenet p{margin:0;color:var(--muted);max-width:34em}
+.tenet .media{aspect-ratio:3/2}
+@media (max-width:860px){.tenet{grid-template-columns:1fr;gap:14px}}
+
+.propgrid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px;align-items:center}
+.propgrid h2{font-size:clamp(30px,3.6vw,48px);line-height:1.12;margin:14px 0 20px}
+.propgrid p{color:var(--muted);margin:0 0 16px;max-width:32em}
+.propgrid ol{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:12px;counter-reset:s}
+.propgrid li{display:grid;grid-template-columns:34px 1fr;gap:10px;font-size:15px;opacity:.38;transition:opacity .5s}
+.propgrid li.on{opacity:1}
+.propgrid li::before{counter-increment:s;content:counter(s,upper-roman);font:400 13px/1.8 var(--display);color:var(--brass-ink)}
+.construct{width:100%;height:auto;max-width:520px;justify-self:center}
+.construct *{fill:none;stroke-width:1}
+.construct .g{stroke:var(--rule)}
+.construct .b{stroke:var(--brass)}
+.construct .i{stroke:var(--ink)}
+.construct text{fill:var(--brass-ink);stroke:none;font:500 10px var(--body);letter-spacing:.14em}
+@media (max-width:860px){.propgrid{grid-template-columns:1fr;gap:36px}}
+
+.draft{display:inline-flex;gap:10px;align-items:center;font-size:12px;color:var(--brass-ink);border:1px dashed var(--brass-ink);padding:8px 12px;margin-top:20px}
+.period{padding-block:88px;border-top:1px solid var(--rule)}
+.period:nth-of-type(even){background:var(--stone)}
+.pgrid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,3fr) minmax(0,5fr);gap:48px;align-items:start}
+.pname .dates{font:400 15px var(--display);color:var(--brass-ink);font-variant-numeric:tabular-nums}
+.pname h2{font-size:clamp(36px,4.4vw,60px);line-height:1;margin:10px 0 18px}
+.pname p{margin:0 0 18px;color:var(--muted)}
+.pname .where{font-size:13px;border-top:1px solid var(--rule);padding-top:14px}
+.pname .where b{display:block;font:500 10.5px/1.6 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--brass-ink)}
+.pprof{position:sticky;top:110px;display:grid;gap:12px;color:var(--brass-ink)}
+.pprof svg{width:100%;height:auto;border:1px solid var(--rule);background:var(--ivory)}
+.period:nth-of-type(even) .pprof svg{background:var(--stone)}
+.pprof .ln{fill:none;stroke:var(--ink);stroke-width:1.2}
+.pprof .gd{fill:none;stroke:var(--brass);stroke-width:.8}
+.pprof .sec{fill:url(#hatch);stroke:none;opacity:0;transition:opacity 1s 1.4s}
+.pprof.in .sec{opacity:1}
+.pprof text{font:500 9px var(--body);letter-spacing:.14em;fill:var(--brass-ink)}
+.pprof figcaption{font-size:12px;color:var(--muted)}
+.pprof figcaption b{font:400 17px/1.3 var(--display);color:var(--ink);display:block}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:14px 22px;margin:0;font-size:15px}
+.spec dt{font:500 10.5px/1.9 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--brass-ink);padding-top:1px}
+.spec dd{margin:0}
+.sw{display:flex;flex-wrap:wrap;gap:12px;margin-top:2px}
+.sw span{display:grid;gap:5px;font-size:11px;color:var(--muted);width:64px}
+.sw i{display:block;height:40px;border:1px solid rgba(21,25,10,.15)}
+.ev{border-left:2px solid var(--brass);padding-left:14px}
+.us{border-left:2px solid var(--olive);padding-left:14px}
+.pimg{position:relative;margin-top:36px;margin-left:auto;width:min(100%,760px);aspect-ratio:16/9;overflow:hidden}
+.pimg img{width:100%;height:100%;object-fit:cover}
+@media (max-width:980px){.pgrid{grid-template-columns:1fr 1fr}.pname{grid-column:1/-1}.pprof{position:relative;top:0}}
+@media (max-width:640px){.pgrid{grid-template-columns:1fr}.spec{grid-template-columns:1fr;gap:4px}.spec dd{margin-bottom:12px}.pimg{aspect-ratio:4/3}}
+
+.rooms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
+.room{padding:28px 26px 30px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);display:grid;gap:10px;align-content:start}
+.room h3{font-size:22px}
+.room .then{font:400 italic 14px var(--display);color:var(--brass-ink)}
+.room p{margin:0;font-size:14.5px;color:var(--muted)}
+@media (max-width:860px){.rooms{grid-template-columns:1fr}}
+
+.arts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.art{text-decoration:none;display:grid;gap:12px}
+.art .media{aspect-ratio:3/2}
+.art h3{font-size:21px}
+.art p{margin:0;font-size:14px;color:var(--muted)}
+@media (max-width:860px){.arts{grid-template-columns:1fr}}
+
+.later{text-align:center;padding-block:96px}
+.later-q{max-width:30em;margin:0 auto;font:400 clamp(20px,2.2vw,28px)/1.55 var(--display);color:var(--ink)}
+.later-by{margin-top:22px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-ink)}
+.cta{background:var(--olive);color:var(--ivory);text-align:center}
+.cta h2{font-size:clamp(28px,3.4vw,44px);margin:14px auto 18px;max-width:18em}
+.cta p{color:#D3CCBF;max-width:34em;margin:0 auto 28px}
+.cta .eyebrow{color:var(--brass)}
+.cta .btn{background:var(--ivory);color:var(--olive);border-color:var(--ivory)}
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← All designs</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line data-keep x1="0" y1="0" x2="0" y2="5" stroke="#A98752" stroke-width="1" opacity=".55"/></pattern></defs></svg>
+
+<header class="site solid" id="head">
+  <div class="wrap bar">
+    <a class="word" href="daylight.html">GROUSE &amp; COMPANY</a>
+    <nav class="main" aria-label="Main">
+      <a href="daylight.html#systems">Bespoke Interiors</a><a href="daylight.html#work">Our Work</a><a href="daylight.html#approach">Our Approach</a><a href="#top" aria-current="page">The British Interior</a><a href="daylight.html#about">About</a>
+    </nav>
+    <a class="hbtn" href="daylight.html#enquire">Start a project</a>
+  </div>
+</header>
+
+<div class="rod" aria-hidden="true" style="opacity:1"><svg></svg><div class="rmark"><div class="lbl"><span class="rv">1700</span><span class="ru">circa</span></div></div></div>
+
+<main id="top" class="after">
+  <div class="wrap bihero">
+    <div class="eyebrow">The British Interior</div>
+    <blockquote>“Each time I came home I had a deeper appreciation for English culture, architecture, history and the character of the homes tucked away in our villages and countryside.”</blockquote>
+    <div class="sig"><span><b>Adam Toms</b>, founder</span></div>
+    <div class="widepic"><img src="img/livingroom.jpg" alt="A panelled country sitting room with a lit fire"><span class="concept">Concept image</span></div>
+  </div>
+
+  <section style="padding-top:40px">
+    <div class="wrap">
+      <div class="head"><div><div class="eyebrow">What British means to us</div><h2>Four things a good British room has</h2></div><p>Not a style to copy, but a way of looking at a house. These are what we check for before we draw anything.</p></div>
+      <div class="tenets">
+        <div class="tenet"><h3>Proportion</h3><p>Georgian builders set rooms out by rule, and later builders kept many of the habits. Panels, doors, windows and cornices answer to each other. New joinery should share those proportions, not fight them.</p><div class="media"><img src="img/panelling.jpg" alt="Painted dado panelling" loading="lazy"><span class="concept">Concept</span></div></div>
+        <div class="tenet"><h3>Useful rooms</h3><p>Boot rooms, pantries, sculleries and libraries exist because country life needs them. A British interior is practical first, and the joinery is there to make the room work.</p><div class="media"><img src="img/bootroom2.jpg" alt="Boot room with olive cabinetry" loading="lazy"><span class="concept">Concept</span></div></div>
+        <div class="tenet"><h3>Enduring materials</h3><p>Oak that darkens with light, paint that can be touched up, brass that wears to the hand. We choose materials for how they will look in twenty years, not on the day we hand over.</p><div class="media"><img src="img/timber.jpg" alt="Oak door with brass knob and timber samples" loading="lazy"><span class="concept">Concept</span></div></div>
+        <div class="tenet"><h3>Layers of character</h3><p>Most old houses are several periods at once: a Georgian front, a Victorian wing, a 1970s kitchen. We keep what is good, repair where we can, and add the next layer honestly.</p><div class="media"><img src="img/drawing.jpg" alt="Drawing room with original cornice and new joinery" loading="lazy"><span class="concept">Concept</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="proportion">
+    <div class="wrap propgrid">
+      <div>
+        <div class="eyebrow">Proportion</div>
+        <h2>Read the house before changing it</h2>
+        <p>Many Georgian rooms were set out from simple geometry: a square, its diagonal, and the rectangle that grows from it. Windows, panels and doors follow the same order. New joinery that ignores it tends to look added on.</p>
+        <ol id="steps">
+          <li>Start from the module: the width of the room, the window or the panel.</li>
+          <li>Swing the diagonal of the square to find the height.</li>
+          <li>Divide by the stiles, rails and glazing bars.</li>
+          <li>Fit the new piece to the same order, then to the way you live.</li>
+        </ol>
+      </div>
+      <svg class="construct" id="construct" viewBox="0 0 480 520" role="img" aria-label="A Georgian panel set out from a square and its diagonal, giving a 1 to root two rectangle">
+        <rect class="g" x="40" y="160" width="300" height="300"/>
+        <path class="b s1" d="M40 460 L340 460 L340 160 L40 160 Z"/>
+        <path class="b s2" d="M40 460 L340 160"/>
+        <path class="b s2" d="M340 160 A 424.26 424.26 0 0 0 40 35.74"/>
+        <path class="i s3" d="M40 35.74 L340 35.74 L340 460"/>
+        <path class="i s4" d="M70 66 H310 V430 H70 Z M90 86 H290 V410 H90 Z M70 66 L90 86 M310 66 L290 86 M70 430 L90 410 M310 430 L290 410"/>
+        <path class="b s4" d="M90 248 H290 M190 86 V410"/>
+        <text x="40" y="492">1 : √2</text><text x="352" y="314">300</text><text x="352" y="100">424</text>
+      </svg>
+    </div>
+  </section>
+
+  <section style="padding-bottom:40px">
+    <div class="wrap">
+      <div class="head" style="margin-bottom:0">
+        <div><div class="eyebrow">A guide by period</div><h2>Panelling and detail, from Georgian to Edwardian</h2></div>
+        <div><p>Dates, the houses you'll find each style in, the profiles and finishes, and how we interpret them today. A house's date is a starting point; what survives in it, and what was changed later, matters more.</p>
+        <div class="draft">Draft for review · historical notes to be checked before publication</div></div>
+      </div>
+    </div>
+  </section>
+
+  <article class="period" data-year="1714" data-year-end="1800">
+    <div class="wrap pgrid">
+      <div class="pname">
+        <div class="dates">c. 1714 – 1830</div>
+        <h2>Georgian</h2>
+        <p>Order and restraint. Rooms are organised like a classical column: the dado as pedestal, the wall as shaft, the cornice as entablature.</p>
+        <div class="where"><b>Where you'll find it</b>Town houses, rectories, farmhouses refronted in brick or stone, country houses.</div>
+      </div>
+      <figure class="pprof" data-draw style="margin:0">
+        <svg viewBox="0 0 200 170" aria-hidden="true"><path class="gd" d="M10 20 H190 M10 130 H190"/><path class="sec" data-keep d="M30 20 H150 V32 H140 A44 44 0 0 1 96 76 V86 H84 V130 H30 Z"/><path class="ln" d="M30 20 H150 V32 H140 A44 44 0 0 1 96 76 V86 H84 V130 H30 Z"/><text x="30" y="156">SECTION · NTS</text></svg>
+        <figcaption><b>Ovolo</b>A quarter-round between two fillets, on sash bars, panel moulds and door frames.</figcaption>
+      </figure>
+      <dl class="spec">
+        <dt>Profiles</dt><dd>Early: full-height raised-and-fielded panelling with bolection moulds. Later: panelling drops to dado height, with ovolo and astragal details and a plaster wall above.</dd>
+        <dt>Finish</dt><dd>Painted softwood (deal), with oak in older or grander rooms.</dd>
+        <dt>Colour</dt><dd><div class="sw"><span><i style="background:#CFC4AE"></i>Stone</span><span><i style="background:#A69B7E"></i>Drab</span><span><i style="background:#97A27A"></i>Pea green</span><span><i style="background:#EDE6D6"></i>Off-white</span></div></dd>
+        <dt>Evidence</dt><dd class="ev">Surviving panelling, paint scrapes, and builders' pattern books such as Batty Langley's and William Pain's.</dd>
+        <dt>Our take</dt><dd class="us">Wardrobes set within the dado line, ovolo-moulded in-frame doors, and a cornice that returns into the room's own.</dd>
+      </dl>
+    </div>
+    <div class="wrap"><div class="pimg"><img src="img/georgian.jpg" alt="Painted Georgian panelling" loading="lazy" style="object-position:50% 40%"><span class="concept">Concept image</span></div></div>
+  </article>
+
+  <article class="period" data-year="1800" data-year-end="1837">
+    <div class="wrap pgrid">
+      <div class="pname">
+        <div class="dates">c. 1800 – 1837</div>
+        <h2>Regency</h2>
+        <p>Lighter, more linear and more Greek. Panelling largely gives way to plaster walls with a dado rail; detail moves to doors, architraves and shutters.</p>
+        <div class="where"><b>Where you'll find it</b>Stucco terraces and villas, and the spa and seaside towns: Bath, Cheltenham, Brighton.</div>
+      </div>
+      <figure class="pprof" data-draw style="margin:0">
+        <svg viewBox="0 0 200 170" aria-hidden="true"><path class="gd" d="M10 20 H190 M10 130 H190"/><path class="sec" data-keep d="M30 20 H122 A11 11 0 0 1 122 42 A11 11 0 0 1 122 64 A11 11 0 0 1 122 86 A11 11 0 0 1 122 108 A11 11 0 0 1 122 130 H30 Z"/><path class="ln" d="M30 20 H122 A11 11 0 0 1 122 42 A11 11 0 0 1 122 64 A11 11 0 0 1 122 86 A11 11 0 0 1 122 108 A11 11 0 0 1 122 130 H30 Z"/><text x="30" y="156">SECTION · NTS</text></svg>
+        <figcaption><b>Reeded</b>Parallel beads, often on architraves that meet at a square corner block.</figcaption>
+      </figure>
+      <dl class="spec">
+        <dt>Profiles</dt><dd>Reeded architraves with corner blocks, slender sash bars, Greek key and anthemion motifs. Shallow, crisp mouldings.</dd>
+        <dt>Finish</dt><dd>Painted softwood; mahogany and rosewood in furniture, with brass stringing.</dd>
+        <dt>Colour</dt><dd><div class="sw"><span><i style="background:#C8CBC4"></i>Pale grey</span><span><i style="background:#D8C4BF"></i>Lilac pink</span><span><i style="background:#D8C29A"></i>Buff</span><span><i style="background:#3F5A47"></i>Deep green</span></div></dd>
+        <dt>Evidence</dt><dd class="ev">Surviving terraces and villas, and the published designs of the period.</dd>
+        <dt>Our take</dt><dd class="us">Alcove cabinets with a reeded pilaster and a square corner block, painted to match the walls.</dd>
+      </dl>
+    </div>
+  </article>
+
+  <article class="period" data-year="1837" data-year-end="1860">
+    <div class="wrap pgrid">
+      <div class="pname">
+        <div class="dates">1837 – 1901</div>
+        <h2>Victorian</h2>
+        <p>Richer, heavier and more various. Mass production made deep mouldings affordable, and every room was expected to look its part.</p>
+        <div class="where"><b>Where you'll find it</b>Terraces, villas, rectories, estate cottages and extended farmhouses.</div>
+      </div>
+      <figure class="pprof" data-draw style="margin:0">
+        <svg viewBox="0 0 200 170" aria-hidden="true"><path class="gd" d="M10 20 H190 M10 130 H190"/><path class="sec" data-keep d="M30 20 H150 V32 C150 76 96 60 96 104 V114 H84 V130 H30 Z"/><path class="ln" d="M30 20 H150 V32 C150 76 96 60 96 104 V114 H84 V130 H30 Z"/><text x="30" y="156">SECTION · NTS</text></svg>
+        <figcaption><b>Ogee</b>An S-curve, used on deep skirtings, architraves and panel moulds.</figcaption>
+      </figure>
+      <dl class="spec">
+        <dt>Profiles</dt><dd>Deep skirtings in principal rooms, ogee and torus profiles, four-panel doors, picture rails, and dados finished with Lincrusta or tiles in halls.</dd>
+        <dt>Finish</dt><dd>Softwood grained to look like oak or mahogany; varnished pitch pine; dark stained timber.</dd>
+        <dt>Colour</dt><dd><div class="sw"><span><i style="background:#6C2B22"></i>Deep red</span><span><i style="background:#2F4734"></i>Bottle green</span><span><i style="background:#5A3E2B"></i>Brown</span><span><i style="background:#B08A3E"></i>Ochre</span></div></dd>
+        <dt>Evidence</dt><dd class="ev">Builders' catalogues, surviving graining under later paint, and period photographs.</dd>
+        <dt>Our take</dt><dd class="us">A media unit in stained oak with a deep plinth that picks up the skirting height.</dd>
+      </dl>
+    </div>
+    <div class="wrap"><div class="pimg"><img src="img/victorian.jpg" alt="Dark Victorian panelling" loading="lazy"><span class="concept">Concept image</span></div></div>
+  </article>
+
+  <article class="period" data-year="1860" data-year-end="1901">
+    <div class="wrap pgrid">
+      <div class="pname">
+        <div class="dates">c. 1860 – 1914</div>
+        <h2>Arts &amp; Crafts</h2>
+        <p>Honest construction, shown rather than hidden. A reaction against machine-made ornament, and the style most at home in the countryside.</p>
+        <div class="where"><b>Where you'll find it</b>Country houses, Cotswold villages, rural cottages and inglenook halls.</div>
+      </div>
+      <figure class="pprof" data-draw style="margin:0">
+        <svg viewBox="0 0 200 170" aria-hidden="true"><path class="gd" d="M10 20 H190 M10 130 H190"/><path class="sec" data-keep d="M30 20 H124 L156 52 V130 H30 Z"/><path class="ln" d="M30 20 H124 L156 52 V130 H30 Z"/><text x="30" y="156">SECTION · NTS</text></svg>
+        <figcaption><b>Stopped chamfer</b>A plain bevelled edge that ends in a carved stop, on posts, beams and frames.</figcaption>
+      </figure>
+      <dl class="spec">
+        <dt>Profiles</dt><dd>Plain boarded or simply framed panelling, chamfers with stops, exposed through-tenons and pegs, built-in settles and inglenooks.</dd>
+        <dt>Finish</dt><dd>Solid oak, waxed, fumed or limed; hand-forged iron and copper hardware.</dd>
+        <dt>Colour</dt><dd><div class="sw"><span><i style="background:#9A7448"></i>Waxed oak</span><span><i style="background:#7C8862"></i>Sage</span><span><i style="background:#B98C3F"></i>Ochre</span><span><i style="background:#E7DFCC"></i>Limewash</span></div></dd>
+        <dt>Evidence</dt><dd class="ev">Surviving houses by architects of the movement, and their published drawings.</dd>
+        <dt>Our take</dt><dd class="us">A boot room in solid oak with pegged joints left visible and a bench made to be sat on.</dd>
+      </dl>
+    </div>
+    <div class="wrap"><div class="pimg"><img src="img/artscrafts.jpg" alt="Oak Arts and Crafts panelling" loading="lazy"><span class="concept">Concept image</span></div></div>
+  </article>
+
+  <article class="period" data-year="1901" data-year-end="1914">
+    <div class="wrap pgrid">
+      <div class="pname">
+        <div class="dates">1901 – c. 1914</div>
+        <h2>Edwardian</h2>
+        <p>Lighter and airier after the Victorians, with white woodwork and more daylight. Arts &amp; Crafts and Queen Anne influences sit side by side.</p>
+        <div class="where"><b>Where you'll find it</b>Suburban villas, country houses and arts-influenced cottages.</div>
+      </div>
+      <figure class="pprof" data-draw style="margin:0">
+        <svg viewBox="0 0 200 170" aria-hidden="true"><path class="gd" d="M10 130 H190"/><path class="sec" data-keep d="M70 130 V24 H104 A22 22 0 0 1 104 68 H92 V130 Z"/><path class="ln" d="M70 130 V24 H104 A22 22 0 0 1 104 68 H92 V130 Z"/><text x="30" y="156">SECTION · NTS</text></svg>
+        <figcaption><b>Torus</b>A large half-round, typically topping a skirting board.</figcaption>
+      </figure>
+      <dl class="spec">
+        <dt>Profiles</dt><dd>Simpler torus skirtings, high picture rails and plate shelves, square-section balusters, and part-glazed doors.</dd>
+        <dt>Finish</dt><dd>White or cream enamel paint on softwood; oak in halls and dining rooms.</dd>
+        <dt>Colour</dt><dd><div class="sw"><span><i style="background:#EFE6CF"></i>Cream</span><span><i style="background:#B8C29F"></i>Soft green</span><span><i style="background:#F4F1E8"></i>White</span><span><i style="background:#8C7B6A"></i>Mushroom</span></div></dd>
+        <dt>Evidence</dt><dd class="ev">Surviving houses, trade catalogues and paint scrapes.</dd>
+        <dt>Our take</dt><dd class="us">Painted wardrobes with a plate-shelf height cornice and a single bead on the door frame.</dd>
+      </dl>
+    </div>
+  </article>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="head"><div><div class="eyebrow">Period Property Intelligence · coming next</div><h2>Why these rooms existed</h2></div><p>The rooms an older house was built around, what happened in them, and what they can become. Each will have its own guide.</p></div>
+      <div class="rooms">
+        <div class="room"><div class="then">From the withdrawing room</div><h3>Drawing room</h3><p>Where the household withdrew after dinner. The best mouldings, the best fireplace, and the room most worth getting right.</p></div>
+        <div class="room"><div class="then">Books, a desk and a fire</div><h3>Library</h3><p>A Georgian and Victorian status room. Shelving scribed to the walls, and the alcove at its best.</p></div>
+        <div class="room"><div class="then">East light for the morning</div><h3>Morning room</h3><p>A smaller, brighter sitting room for daytime use, often the most liveable room in the house today.</p></div>
+        <div class="room"><div class="then">The wet end of the kitchen</div><h3>Scullery</h3><p>Washing up and rough preparation, kept apart from the kitchen. Today a utility room with a purpose.</p></div>
+        <div class="room"><div class="then">Silver, glass and wine</div><h3>Butler's pantry</h3><p>Lockable storage for the valuable things. Now a pantry, a bar or a place to arrange flowers.</p></div>
+        <div class="room"><div class="then">From the gun room and back hall</div><h3>Boot room</h3><p>The working entrance of a country house: coats, boots, dogs, and the walk that has just ended.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><div><div class="eyebrow">Articles</div><h2>Further reading</h2></div><p>Practical guides for anyone living in, buying or working on an older house.</p></div>
+      <div class="arts">
+        <a class="art" href="#top"><div class="media"><img src="img/brass.jpg" alt="An oak drawer with a brass handle" loading="lazy"><span class="concept">Concept</span></div><span class="eyebrow">Bespoke</span><h3>Why made-to-measure joinery commands a room</h3><p>The piece your eye is drawn to, the weight of a handle, and why flat-pack never quite fits an old wall.</p></a>
+        <a class="art" href="#top"><div class="media"><img src="img/mouldings.jpg" alt="Skirting and architrave junction" loading="lazy"><span class="concept">Concept</span></div><span class="eyebrow">Period detail</span><h3>Repair or replace?</h3><p>When original joinery should stay, and how new work can sit beside it without pretending.</p></a>
+        <a class="art" href="#top"><div class="media"><img src="img/inframe.jpg" alt="Painted in-frame door with brass hinge" loading="lazy"><span class="concept">Concept</span></div><span class="eyebrow">Craft</span><h3>In-frame doors and the cockbead</h3><p>The small moulding that makes a cupboard look made, and how to spot one done properly.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="later">
+    <div class="wrap">
+      <p class="later-q">“There is something special about these buildings. Their proportions, their imperfections, their materials and the quiet details shaped over time. They deserve work that respects what is already there.”</p>
+      <div class="later-by">Adam Toms</div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <div class="eyebrow">Start a project</div>
+      <h2>Have an older house, and a room that isn't working?</h2>
+      <p>Tell us about the house and the room. We'll come and look, and tell you honestly what would suit it.</p>
+      <a class="btn" href="daylight.html#enquire">Tell us about your project →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="fine" style="margin-top:0;border-top:0;padding-top:0"><span>© 2026 Grouse &amp; Company Ltd · British joinery &amp; interiors · Oxfordshire</span><span>All imagery shown is concept rendering, not completed Grouse work.</span></div>
+    </div>
+  </footer>
+</main>
+
+<script src="grouse.js"></script>
+<script>
+(function(){
+  var secs=[].slice.call(document.querySelectorAll('[data-year]'));
+  G.yearNow=function(off){
+    var mid=innerHeight*.5;
+    for(var i=0;i<secs.length;i++){
+      var r=secs[i].getBoundingClientRect(),t=r.top+off,h=secs[i].offsetHeight,y0=+secs[i].dataset.year,y1=+secs[i].dataset.yearEnd;
+      if(i===0&&mid<t)return 1700+(y0-1700)*G.clamp(1-(t-mid)/innerHeight,0,1);
+      if(mid>=t&&mid<t+h)return y0+(y1-y0)*(mid-t)/h;
+    }
+    return +secs[secs.length-1].dataset.yearEnd;
+  };
+  G.rod({year:true,from:1700,to:1920,major:50,minor:10,label:function(){return 'circa'}});
+  G.construct(document.getElementById('construct'),document.getElementById('steps'));
+  G.draws();
+  G.start();
+})();
+</script>
+</body>
+</html>
